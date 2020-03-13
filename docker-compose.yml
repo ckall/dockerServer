@@ -1,0 +1,89 @@
+version: "3"
+services:
+
+  mysql:
+    build: ./server/mysql
+    ports:
+      - "3301:3306"
+    volumes:
+      - ./server/mysql/my.cnf:/etc/my.cnf
+      - ./server/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    restart: always
+    networks:
+      - server
+    container_name: mysql
+
+  nginx:
+    build: ./server/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./server/nginx/cert:/etc/nginx/cert
+      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./server/nginx/log:/var/log/nginx
+    networks:
+      - client
+    restart: always
+    container_name: nginx
+
+  redis:
+    build: ./server/redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./server/redis/redis.conf:/usr/local/etc/redis.conf
+      - ./server/redis/data:/usr/local/redis/data
+      - ./server/redis/log/redis.log:/usr/local/redis/redis.log
+    networks:
+      - server
+    restart: always
+    container_name: redis
+
+  mongodb:
+    build: ./server/mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./server/mongodb/mongo.conf:/etc/mongo/mongod.conf
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "mongodb"
+      MONGO_INITDB_ROOT_PASSWORD: "123456"
+    networks:
+      - server
+    restart: always
+    container_name: mongodb
+    command:
+      --auth
+
+  metabase:
+    build: ./server/metabase
+    ports:
+      - "3000:3000"
+    networks:
+      - server
+      - client
+    restart: always
+    container_name: metabase
+
+  rabbitmq:
+    build: ./server/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "123456"
+    networks:
+      - server
+    restart: always
+    container_name: rabbitmq
+
+
+networks:
+#客户端
+  client:
+#服务端
+  server:

@@ -1,0 +1,70 @@
+version: "3.1"
+services:
+    es-master:
+        build: ./elasticsearch
+        ports:
+          - "9200:9200"
+          - "9300:9300"
+        volumes:
+          - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+          - ./elasticsearch/data:/usr/share/elasticsearch/data
+          - ./elasticsearch/logs:/usr/share/elasticsearch/logs
+          - ./elasticsearch/escerts:/usr/share/elasticsearch/config/certs
+        environment:
+          - "ES_JAVA_OPTS=-Xms128m -Xmx512m"
+          - TIMEZONE=Asia/ShangHai
+          - ELASTIC_PASSWORD=123456
+        restart: always
+        networks:
+          - server
+        container_name: es-master
+
+    logagent:
+        build: ./logstash
+        hostname: logstash
+        depends_on:
+          - es-master
+        ports:
+          - "5044:5044"
+        volumes:
+          - ./logstash/logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
+          - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+        environment:
+          - elasticsearch.hosts=http://es-master:9200
+          # 解决logstash监控连接报错
+          - xpack.monitoring.elasticsearch.hosts=http://es-master:9200
+          - TIMEZONE=Asia/ShangHai
+        networks:
+          - server
+        restart: always
+        container_name: logstash
+
+    kibana:
+        build: ./kibana
+        ports:
+          - "5601:5601"
+        depends_on:
+          - es-master
+        volumes:
+          - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+        environment:
+          - elasticsearch.hosts=http://es-master:9200
+          - TIMEZONE=Asia/ShangHai
+        networks:
+          - server
+        restart: always
+        container_name: kibana
+
+    es-head:
+        build: ./es-head
+        ports:
+          - "9100:9100"
+        depends_on:
+          - es-master
+        networks:
+          - server
+        restart: always
+        container_name: es-head
+
+networks:
+    server:

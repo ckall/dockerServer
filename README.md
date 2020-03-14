@@ -24,11 +24,32 @@ sudo service docker start|restart|stop
 
 
 
-###PHP开发
+###启动容器
+很常用的环境
+
 
 ```shell
-转换文件
-cat php.yml > docker-compose.yml
-自动生成文件
+包含：redis,nginx,mongodb,mysql,rabbitmq,metabase
+cd DockerBaseEnv
+chomd -R 777 ./server/redis/data
+chomd 777 ./server/redis/redis.conf
 composer up --bliud -d
+```
+
+安装elk
+```shell
+包含:elasticsearch,kibana,logstash,es-head
+cd DockerBaseEnv/elk
+composer up --bliud -d
+```
+## Usage
+####如何在centos服务器本身运行docker对应的容器命令？
+```
+vim ~/.bash_profile
+加入你需要的容器container
+alias dnginx='docker exec -it {container} /bin/sh'
+source ~/.bash_profile
+例子：
+echo "alias dnginx='docker exec -it nginx /bin/sh'" >> ~/.bash_profile
+source ~/.bash_profile
 ```

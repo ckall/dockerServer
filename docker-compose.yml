@@ -82,6 +82,7 @@ services:
     container_name: rabbitmq
 
 
+
 networks:
 #客户端
   client:

@@ -16,7 +16,7 @@ services:
           - ELASTIC_PASSWORD=123456
         restart: always
         networks:
-          - server
+          - elknet
         container_name: es-master
 
     logagent:
@@ -35,7 +35,7 @@ services:
           - xpack.monitoring.elasticsearch.hosts=http://es-master:9200
           - TIMEZONE=Asia/ShangHai
         networks:
-          - server
+          - elknet
         restart: always
         container_name: logstash
 
@@ -51,7 +51,7 @@ services:
           - elasticsearch.hosts=http://es-master:9200
           - TIMEZONE=Asia/ShangHai
         networks:
-          - server
+          - elknet
         restart: always
         container_name: kibana
 
@@ -62,9 +62,9 @@ services:
         depends_on:
           - es-master
         networks:
-          - server
+          - elknet
         restart: always
         container_name: es-head
 
 networks:
-    server:
+    elknet:

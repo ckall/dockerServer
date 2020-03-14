@@ -1,5 +1,7 @@
 FROM nginx:latest
+MAINTAINER "ckallcloud@foxmail.com"
 
+#CMD []
 ### set timezome
 
 #ENV TZ=Asia/Shanghai

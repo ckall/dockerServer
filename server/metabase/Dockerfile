@@ -1,1 +1,2 @@
-FROM metabase:latest
+FROM metabase/metabase:latest
+MAINTAINER "ckallcloud@foxmail.com"

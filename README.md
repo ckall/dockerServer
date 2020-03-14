@@ -22,6 +22,13 @@ sudo systemctl enable docker.service
 sudo service docker start|restart|stop     
 ```
 
+####镜像源切换到国内
+
+
+阿里云会自动给你分一个专属的加速地址
+
+https://dev.aliyun.com
+
 
 
 ###启动容器

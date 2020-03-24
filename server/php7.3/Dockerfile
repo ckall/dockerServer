@@ -2,20 +2,12 @@ FROM daocloud.io/library/php:7.3-fpm-alpine
 
 COPY config/php.ini /usr/local/etc/php
 
-#RUN apk add autoconf gcc \
-#    && wget https://github.com/phpredis/phpredis/archive/3.1.3.tar.gz \
-#    && tar -zxvf 3.1.3.tar.gz \
-#    && cd phpredis-3.1.3 \
-#    && /usr/local/bin/phpize \
-#    && ./configure --with-php-config=/usr/local/bin/php-config \
-#    && make \
-#    && make install \
-
 ENV PHPREDIS_VERSION 5.1.1
 ENV SWOOLE_VERSION 4.4.15
+ENV PHPMEMCACHED_VERSION 2.2.0
 
 RUN cd ~ \
-    && adduser -s /bin/bash git -D -H \
+    && adduser -s /bin/bash web -D -H \
     && wget https://github.com/phpredis/phpredis/archive/${PHPREDIS_VERSION}.tar.gz \
     && tar -zxvf ${PHPREDIS_VERSION}.tar.gz \
     && mkdir -p /usr/src/php/ext \
@@ -31,5 +23,9 @@ RUN cd ~ \
     && docker-php-ext-install swoole \
 
     && docker-php-ext-install pdo_mysql mysqli pcntl gd\
+#    && pecl install memcached-${PHPMEMCACHED_VERSION} \
+#        # 启用扩展
+#    && docker-php-ext-enable memcached \
 
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
+

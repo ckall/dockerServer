@@ -3,9 +3,17 @@
 ### <font face="黑体">介绍</font>
 Development of integrated environment based on docker development, such as PHP, Java and go  基于docker 开发的相关环境 如PHP 和 Java 和 GO的综合环境开发
 
+### 快速锁定
+* [安装docker](#安装)
+* [镜像源](#镜像源切换到国内)
+* [综合环境](#启动容器)
+* [PHP环境](#PHP环境)
+* [GOLANG环境(待完善)](#GOLANG环境)
+* [JAVA环境(待完善)](#JAVA环境)
+
 ### 安装
 ```shell
-#安装docker
+## 安装docker
 curl -sSL https://get.docker.com/ | sh
      
 #国外安装docker-compose

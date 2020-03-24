@@ -15,20 +15,36 @@ services:
       - server
     container_name: mysql
 
-#  nginx:
-#    build: ./server/nginx
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    volumes:
-#      - ./server/nginx/cert:/etc/nginx/cert
-#      - ./server/nginx/base/:/etc/nginx
-#      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
-#      - ./server/nginx/log:/var/log/nginx
-#    networks:
-#      - client
-#    restart: always
-#    container_name: nginx
+  nginx:
+    build: ./server/nginx
+    depends_on:
+      - php7.3
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./project:/usr/share/nginx/html
+      - ./server/nginx/cert:/etc/nginx/cert
+      - ./server/nginx/base/:/etc/nginx
+      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./server/nginx/log:/var/log/nginx
+    networks:
+      - client
+    restart: always
+    container_name: nginx
+
+  php7.3:
+    build: ./server/php7.3
+    volumes:
+      - ./project:/var/www/html
+      - ./server/php7.3/config/php.ini:/usr/local/etc/php/php.ini
+      - ./server/php7.3/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./server/php7.3/config/php-fpm.d:/usr/local/etc/php-fpm.d
+    networks:
+      - server
+      - client
+    restart: always
+    container_name: php7.3
 
   redis:
     build: ./server/redis
@@ -59,37 +75,37 @@ services:
     command:
       --auth
 
-  metabase:
-    build: ./server/metabase
-    ports:
-      - "3000:3000"
-    networks:
-      - server
-      - client
-    restart: always
-    container_name: metabase
-
-  rabbitmq:
-    build: ./server/rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "123456"
-    networks:
-      - server
-    restart: always
-    container_name: rabbitmq
-
-  yapi:
-    build: ./server/yapi
-    ports:
-      - "9090:9090"
-    networks:
-      - client
-    restart: always
-    container_name: yapi
+#  metabase:
+#    build: ./server/metabase
+#    ports:
+#      - "3000:3000"
+#    networks:
+#      - server
+#      - client
+#    restart: always
+#    container_name: metabase
+#
+#  rabbitmq:
+#    build: ./server/rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    environment:
+#      RABBITMQ_DEFAULT_USER: "rabbitmq"
+#      RABBITMQ_DEFAULT_PASS: "123456"
+#    networks:
+#      - server
+#    restart: always
+#    container_name: rabbitmq
+#
+#  yapi:
+#    build: ./server/yapi
+#    ports:
+#      - "9090:9090"
+#    networks:
+#      - client
+#    restart: always
+#    container_name: yapi
 
 networks:
 #客户端

@@ -15,12 +15,12 @@ ENV PHPREDIS_VERSION 5.1.1
 ENV SWOOLE_VERSION 4.4.15
 
 RUN cd ~ \
-#    && adduser -s /bin/bash git -D -H \
-#    && wget https://github.com/phpredis/phpredis/archive/${PHPREDIS_VERSION}.tar.gz \
-#    && tar -zxvf ${PHPREDIS_VERSION}.tar.gz \
-#    && mkdir -p /usr/src/php/ext \
-#    && mv phpredis-${PHPREDIS_VERSION} /usr/src/php/ext/redis \
-#    && docker-php-ext-install redis \
+    && adduser -s /bin/bash git -D -H \
+    && wget https://github.com/phpredis/phpredis/archive/${PHPREDIS_VERSION}.tar.gz \
+    && tar -zxvf ${PHPREDIS_VERSION}.tar.gz \
+    && mkdir -p /usr/src/php/ext \
+    && mv phpredis-${PHPREDIS_VERSION} /usr/src/php/ext/redis \
+    && docker-php-ext-install redis \
 
     && apk add libstdc++ libpng-dev \
     && cd ~ \

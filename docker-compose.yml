@@ -25,7 +25,7 @@ services:
     volumes:
       - ./project:/usr/share/nginx/html
       - ./server/nginx/cert:/etc/nginx/cert
-#      - ./server/nginx/base/:/etc/nginx
+      - ./server/nginx/nginx.d:/etc/nginx/conf.d
       - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server/nginx/log:/var/log/nginx
     networks:
@@ -108,7 +108,5 @@ services:
 #    container_name: yapi
 
 networks:
-#客户端
   client:
-#服务端
   server:

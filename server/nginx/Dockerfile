@@ -1,8 +1,6 @@
 FROM nginx:latest
-MAINTAINER "ckallcloud@foxmail.com"
 
-#CMD []
-### set timezome
+MAINTAINER ckallcloud@foxmail.com
 
-ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+EXPOSE 80

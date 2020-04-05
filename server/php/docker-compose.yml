@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  php:
+    image: registry.cn-shenzhen.aliyuncs.com/lnmpdev/php:7.3-xdebug-fpm-alpine-redis-composer-git-swoole
+    networks:
+      - server
+      - client
+    restart: always
+    volumes:
+      - ./:/web/
+      - ./docker/php/:/usr/local/etc/php/
+      - ./docker/php/session_path/:/usr/local/etc/php/session_path
+      - ./docker/alpine/etc/crontabs/:/etc/crontabs/     #进容器启动命令： crond
+    environment:
+      - TZ=Asia/Shanghai
+
+  nginx:
+    image: registry.cn-shenzhen.aliyuncs.com/lnmpdev/nginx:1.13
+    networks:
+      - client
+    ports:
+      #   静态代理端口
+      # - 8080:8080
+      - 8090:80
+    restart: always
+    depends_on:
+      - php
+    volumes:
+      - ./:/web/
+      #- ./webpack.mix.js:/web/webpack.mix.js
+      - ./docker/nginx/:/etc/nginx/
+      - ./docker/nginx/log/:/var/log/nginx/
+
+networks:
+  server:
+  client:

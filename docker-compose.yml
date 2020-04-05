@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
 
   mysql:
@@ -12,39 +12,22 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
     restart: always
     networks:
-      - server
+       server:
+          ipv4_address: 172.66.0.6
     container_name: mysql
 
   nginx:
-    build: ./server/nginx
-    depends_on:
-      - php7.3
+    build:
+      context: ./server/nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./project:/usr/share/nginx/html
-      - ./server/nginx/cert:/etc/nginx/cert
-      - ./server/nginx/nginx.d:/etc/nginx/conf.d
-      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./server/nginx/config:/etc/nginx
       - ./server/nginx/log:/var/log/nginx
     networks:
-      - client
-    restart: always
+      server:
+        ipv4_address: 172.66.0.2
     container_name: nginx
-
-  php7.3:
-    build: ./server/php7.3
-    volumes:
-      - ./project:/var/www/html
-      - ./server/php7.3/config/php.ini:/usr/local/etc/php/php.ini
-      - ./server/php7.3/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./server/php7.3/config/php-fpm.d:/usr/local/etc/php-fpm.d
-    networks:
-      - client
-      - server
-    restart: always
-    container_name: php7.3
 
   redis:
     build: ./server/redis
@@ -55,7 +38,8 @@ services:
       - ./server/redis/data:/usr/local/redis/data
       - ./server/redis/log/redis.log:/usr/local/redis/redis.log
     networks:
-      - server
+      server:
+        ipv4_address: 172.66.0.3
     restart: always
     container_name: redis
 
@@ -69,34 +53,26 @@ services:
       MONGO_INITDB_ROOT_USERNAME: "mongodb"
       MONGO_INITDB_ROOT_PASSWORD: "123456"
     networks:
-      - server
+      server:
+        ipv4_address: 172.66.0.4
     restart: always
     container_name: mongodb
     command:
       --auth
 
-#  metabase:
-#    build: ./server/metabase
-#    ports:
-#      - "3000:3000"
-#    networks:
-#      - server
-#      - client
-#    restart: always
-#    container_name: metabase
-#
-#  rabbitmq:
-#    build: ./server/rabbitmq
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#    environment:
-#      RABBITMQ_DEFAULT_USER: "rabbitmq"
-#      RABBITMQ_DEFAULT_PASS: "123456"
-#    networks:
-#      - server
-#    restart: always
-#    container_name: rabbitmq
+  rabbitmq:
+    build: ./server/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "123456"
+    networks:
+      server:
+        ipv4_address: 172.66.0.5
+    restart: always
+    container_name: rabbitmq
 #
 #  yapi:
 #    build: ./server/yapi
@@ -108,5 +84,8 @@ services:
 #    container_name: yapi
 
 networks:
-  client:
   server:
+    ipam:
+      config:
+        - subnet: 172.66.0.0/16
+          gateway: 172.66.0.1

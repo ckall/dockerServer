@@ -13,7 +13,7 @@ network.host: 0.0.0.0
 # 设置对外服务的http端口
 http.port: 9200
 # 设置节点间交互的tcp端口
-transport.port: 9300
+#transport.port: 9300
 # 集群发现
 discovery.seed_hosts:
   - es-master
@@ -25,11 +25,11 @@ cluster.initial_master_nodes:
 # 支持跨域访问
 http.cors.enabled: true
 http.cors.allow-origin: "*"
-http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-Type
+#http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-Type
 # 安全认证
-xpack.license.self_generated.type: trial
-xpack.security.enabled: true
-xpack.monitoring.collection.enabled: true
+#xpack.license.self_generated.type: trial
+#xpack.security.enabled: true
+#xpack.monitoring.collection.enabled: true
 
 ################################ basic ssl #########################################
 # xpack.security.enabled: true

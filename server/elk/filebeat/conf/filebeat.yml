@@ -27,7 +27,7 @@ setup.kibana:
 # hosts: ["http://es-master:9200"]
 # index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
 # username: 'elastic'
-# password: '123456'
+# password: 'charles'
 
 output.logstash:
   hosts: ["logstash:5044"]

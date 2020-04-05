@@ -16,7 +16,7 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - TIMEZONE=Asia/ShangHai
-      - ELASTIC_PASSWORD=123456
+#      - ELASTIC_PASSWORD=charles
     #ulimits:
     #  memlock:
     #    soft: -1
@@ -88,7 +88,7 @@ services:
     volumes:
       - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
     environment:
-      - elasticsearch.hosts=http://es-master:9200
+      - elasticsearch.hosts=http://192.168.2.105:9200
       - TIMEZONE=Asia/ShangHai
     depends_on:
       - es-master
@@ -96,7 +96,7 @@ services:
       - es-slave2
     networks:
       - elknet
-
+#
   # logstash
   logstash:
     container_name: logstash
@@ -136,13 +136,12 @@ services:
     # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
     environment:
       - TIMEZONE=Asia/ShangHai
-    links:
-      - logstash
     # 依赖服务[可无]
     depends_on:
       - es-master
       - es-slave1
       - es-slave2
+      - logstash
     networks:
       - elknet
 
@@ -160,17 +159,17 @@ services:
     networks:
       - elknet
 
-  # es监控工具
-  cerebro:
-    container_name: cerebro
-    image: lmenezes/cerebro
-    restart: always
-    ports:
-      - 9001:9000
-    command:
-      - -Dhosts.0.host=http://es-master:9200
-    networks:
-      - elknet
+#  # es监控工具
+#  cerebro:
+#    container_name: cerebro
+#    image: lmenezes/cerebro
+#    restart: always
+#    ports:
+#      - 9001:9000
+#    command:
+#      - -Dhosts.0.host=http://es-master:9200
+#    networks:
+#      - elknet
 
   # es索引管理
 #  curator:

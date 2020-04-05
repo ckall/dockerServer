@@ -3,7 +3,7 @@ cluster.name: es-cluster
 # 节点名称
 node.name: es-slave2
 # 是否可以成为master节点
-node.master: true
+node.master: false
 # 是否允许该节点存储数据,默认开启
 node.data: true
 # 锁住内存，不被使用到交换分区去
@@ -11,7 +11,7 @@ node.data: true
 # 网络绑定
 network.host: 0.0.0.0
 # 设置对外服务的http端口
-http.port: 9202
+http.port: 9200
 # 设置节点间交互的tcp端口
 #transport.port: 9302
 # 集群发现
@@ -25,11 +25,11 @@ cluster.initial_master_nodes:
 # 支持跨域访问
 http.cors.enabled: true
 http.cors.allow-origin: "*"
-http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-Type
+#http.cors.pack.license.self_generated.type: trial
+           ##xpack.security.enabled: true
+           ##xpack.monitoring.collection.enabled: trueallow-headers: Authorization,X-Requested-With,Content-Length,Content-Type
 # 安全认证
-xpack.license.self_generated.type: trial
-xpack.security.enabled: true
-xpack.monitoring.collection.enabled: true
+#x
 
 ################################ basic ssl #########################################
 # xpack.security.enabled: true

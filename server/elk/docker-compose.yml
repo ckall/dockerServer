@@ -123,27 +123,27 @@ services:
       - elknet
 
   # filebeat
-  filebeat:
-    container_name: filebeat
-    hostname: filebeat
-    image: docker.elastic.co/beats/filebeat:7.4.2
-    restart: always
-    volumes:
-      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ./logs:/var/log
-      - ./filebeat/logs:/usr/share/filebeat/logs
-      - ./filebeat/data:/usr/share/filebeat/data
-    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
-    environment:
-      - TIMEZONE=Asia/ShangHai
-    # 依赖服务[可无]
-    depends_on:
-      - es-master
-      - es-slave1
-      - es-slave2
-      - logstash
-    networks:
-      - elknet
+#  filebeat:
+#    container_name: filebeat
+#    hostname: filebeat
+#    image: docker.elastic.co/beats/filebeat:7.4.2
+#    restart: always
+#    volumes:
+#      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+#      - ./logs:/var/log
+#      - ./filebeat/logs:/usr/share/filebeat/logs
+#      - ./filebeat/data:/usr/share/filebeat/data
+#    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
+#    environment:
+#      - TIMEZONE=Asia/ShangHai
+#    # 依赖服务[可无]
+#    depends_on:
+#      - es-master
+#      - es-slave1
+#      - es-slave2
+#      - logstash
+#    networks:
+#      - elknet
 
   # es-head
   es-head:
@@ -152,6 +152,8 @@ services:
     restart: always
     ports:
       - 9100:9100
+    volumes:
+      - ./es-head:/usr/src/app/_site
     depends_on:
       - es-master
       - es-slave1

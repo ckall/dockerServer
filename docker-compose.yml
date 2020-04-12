@@ -13,21 +13,41 @@ services:
     restart: always
     networks:
        server:
-          ipv4_address: 172.66.0.6
+          ipv4_address: 172.66.0.2
     container_name: mysql
 
   nginx:
-    build:
-      context: ./server/nginx
+    build: ./server/nginx
+    depends_on:
+      - php
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./server/nginx/config:/etc/nginx
-      - ./server/nginx/log:/var/log/nginx
+      - ./www:/app
+      - ./server/nginx/conf.d:/etc/nginx/conf.d
+      - ./server/nginx/cert:/etc/nginx/cert
+      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./server/nginx/log/error.log:/var/log/nginx/error.log
     networks:
       server:
-        ipv4_address: 172.66.0.2
+        ipv4_address: 172.66.0.3
+    restart: always
     container_name: nginx
+
+  php:
+    build: ./server/php
+    volumes:
+      -  ./www:/www
+      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
+      - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
+#      - ./server/php/hosts:/etc/hosts
+    networks:
+      server:
+        ipv4_address: 172.66.0.4
+    restart: always
+    container_name: php
 
   redis:
     build: ./server/redis
@@ -39,7 +59,7 @@ services:
       - ./server/redis/log/redis.log:/usr/local/redis/redis.log
     networks:
       server:
-        ipv4_address: 172.66.0.3
+        ipv4_address: 172.66.0.5
     restart: always
     container_name: redis
 
@@ -54,7 +74,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "123456"
     networks:
       server:
-        ipv4_address: 172.66.0.4
+        ipv4_address: 172.66.0.6
     restart: always
     container_name: mongodb
     command:
@@ -70,7 +90,7 @@ services:
       RABBITMQ_DEFAULT_PASS: "123456"
     networks:
       server:
-        ipv4_address: 172.66.0.5
+        ipv4_address: 172.66.0.7
     restart: always
     container_name: rabbitmq
 #

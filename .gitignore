@@ -1,2 +1,6 @@
 .idea
 !.gitignore
+/project/*
+/engine
+/server/mysql/data/*
+/www

@@ -1,8 +1,7 @@
-FROM nginx:latest
-MAINTAINER "ckallcloud@foxmail.com"
+FROM daocloud.io/library/nginx:1.13.0-alpine
 
-#CMD []
 ### set timezome
-
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+WORKDIR /www

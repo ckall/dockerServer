@@ -24,7 +24,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./www:/app
+      - ./www:/www
       - ./server/nginx/conf.d:/etc/nginx/conf.d
       - ./server/nginx/cert:/etc/nginx/cert
       - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -42,7 +42,7 @@ services:
       - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
-#      - ./server/php/hosts:/etc/hosts
+#      - ./server/etc/hosts:/etc/hosts
     networks:
       server:
         ipv4_address: 172.66.0.4
@@ -99,7 +99,8 @@ services:
 #    ports:
 #      - "9090:9090"
 #    networks:
-#      - client
+#      server:
+#        ipv4_address: 172.66.0.8
 #    restart: always
 #    container_name: yapi
 

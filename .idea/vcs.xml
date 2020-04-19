@@ -2,5 +2,12 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/server/tidb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/admin-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/api-shared" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/atu" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/engine" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/www/larfree" vcs="Git" />
   </component>
 </project>

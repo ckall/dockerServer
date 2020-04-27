@@ -19,10 +19,7 @@ RUN cd ~ \
     && tar -zxvf swoole.tar.gz \
     && mkdir -p /usr/src/php/ext \
     && mv swoole-src-$SWOOLE_VERSION/ /usr/src/php/ext/swoole/ \
-    && docker-php-ext-install swoole \
-
-    && docker-php-ext-install pdo_mysql mysqli pcntl gd\
-
+    && docker-php-ext-install swoole pdo_mysql mysqli pcntl gd \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
 
 WORKDIR /www

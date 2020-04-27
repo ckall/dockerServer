@@ -4,3 +4,6 @@
 /engine
 /server/mysql/data/*
 /www
+
+
+/server/tidb

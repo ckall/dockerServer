@@ -1,4 +1,4 @@
-version: "2"
+version: "2.1"
 services:
 
   mysql:
@@ -12,8 +12,8 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
     restart: always
     networks:
-       server:
-          ipv4_address: 172.66.0.2
+      server:
+        ipv4_address: 172.27.0.2
     container_name: mysql
 
   nginx:
@@ -27,11 +27,12 @@ services:
       - ./www:/www
       - ./server/nginx/conf.d:/etc/nginx/conf.d
       - ./server/nginx/cert:/etc/nginx/cert
+      - ./server/nginx/upstream:/etc/nginx/upstream
       - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server/nginx/log/error.log:/var/log/nginx/error.log
     networks:
       server:
-        ipv4_address: 172.66.0.3
+        ipv4_address: 172.27.0.3
     restart: always
     container_name: nginx
 
@@ -40,14 +41,14 @@ services:
     #原生构建太慢了如果你自己需要改的话就到上一个目录吧
     image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     volumes:
-      -  ./www:/www
+      - ./www:/www
       - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
-#      - ./server/etc/hosts:/etc/hosts
+    #      - ./server/etc/hosts:/etc/hosts
     networks:
       server:
-        ipv4_address: 172.66.0.4
+        ipv4_address: 172.27.0.4
     restart: always
     container_name: php
 
@@ -61,7 +62,7 @@ services:
       - ./server/redis/log/redis.log:/usr/local/redis/redis.log
     networks:
       server:
-        ipv4_address: 172.66.0.5
+        ipv4_address: 172.27.0.5
     restart: always
     container_name: redis
 
@@ -76,7 +77,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: "123456"
     networks:
       server:
-        ipv4_address: 172.66.0.6
+        ipv4_address: 172.27.0.6
     restart: always
     container_name: mongodb
     command:
@@ -92,23 +93,43 @@ services:
       RABBITMQ_DEFAULT_PASS: "123456"
     networks:
       server:
-        ipv4_address: 172.66.0.7
+        ipv4_address: 172.27.0.7
     restart: always
     container_name: rabbitmq
-#
-#  yapi:
+#  
+# yapi:
 #    build: ./server/yapi
 #    ports:
-#      - "9090:9090"
+#     - "9090:9090"
 #    networks:
 #      server:
-#        ipv4_address: 172.66.0.8
+#        ipv4_address: 172.27.0.8
 #    restart: always
 #    container_name: yapi
+#
+#  team_standard:
+#    image: alicfeng/gitbook:team_standard
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.9
+#    restart: always
+#    container_name: team_standard
+#
+#  metabase:
+#    image: metabase/metabase:latest
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - ./server/metabase/data/metabase.db:/metabase.db
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.10
+#    restart: always
+#    container_name: metabase
 
 networks:
   server:
     ipam:
       config:
-        - subnet: 172.66.0.0/16
-          gateway: 172.66.0.1
+        - subnet: 172.27.0.0/16
+          gateway: 172.27.0.1

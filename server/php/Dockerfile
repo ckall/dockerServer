@@ -13,16 +13,15 @@ RUN cd ~ \
     && mv phpredis-$PHPREDIS_VERSION /usr/src/php/ext/redis \
     && docker-php-ext-install redis \
 
-    && apk add libstdc++ libpng-dev git \
+    && apk add libstdc++ libpng-dev git coreutils freetype-dev  libjpeg-turbo-dev libltdl libmcrypt-dev libpng-dev \
     && cd ~ \
     && wget https://github.com/swoole/swoole-src/archive/v$SWOOLE_VERSION.tar.gz -O swoole.tar.gz \
     && tar -zxvf swoole.tar.gz \
     && mkdir -p /usr/src/php/ext \
     && mv swoole-src-$SWOOLE_VERSION/ /usr/src/php/ext/swoole/ \
-    && docker-php-ext-install swoole \
-
-    && docker-php-ext-install pdo_mysql mysqli pcntl gd\
-
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) mcrypt gd iconv \
+    && docker-php-ext-install swoole pdo_mysql mysqli pcntl \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
 
 WORKDIR /www

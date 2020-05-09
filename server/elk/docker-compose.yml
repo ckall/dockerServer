@@ -105,9 +105,9 @@ services:
       - ./logstash/conf/logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
       - ./logstash/conf/logstash.yml:/usr/share/logstash/config/logstash.yml
     environment:
-      - elasticsearch.hosts=http://192.168.2.105:9200
+      - elasticsearch.hosts=http://es-master:9200
       # 解决logstash监控连接报错
-      - xpack.monitoring.elasticsearch.hosts=http://192.168.2.105:9200
+      - xpack.monitoring.elasticsearch.hosts=http://es-master:9200
       - TIMEZONE=Asia/ShangHai
     ports:
       - 5044:5044

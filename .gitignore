@@ -1,9 +1,4 @@
 .idea
 !.gitignore
-/project/*
-/engine
 /server/mysql/data/*
 /www
-
-
-/server/tidb

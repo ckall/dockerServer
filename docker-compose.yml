@@ -74,18 +74,18 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ./server/mongodb/mongo.conf:/etc/mongo/mongod.conf
+#      - ./server/mongodb/mongo.conf:/etc/mongo/mongod.conf
       - ./server/mongodb/data/db:/data/db #db dir
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "123456"
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: "mongodb"
+#      MONGO_INITDB_ROOT_PASSWORD: "123456"
     networks:
       server:
         ipv4_address: 172.27.0.6
     restart: always
     container_name: mongodb
-    command:
-      --auth
+#    command:
+#      --config /etc/mongo/mongod.conf
 
   rabbitmq:
     build: ./server/rabbitmq

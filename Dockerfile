@@ -19,7 +19,6 @@ RUN apt-get update \
         libpcre3-dev \
         libjpeg-dev \
         libpng-dev \
-        freeType-dev \
         libfreetype6-dev \
 # Install PHP extensions
     && docker-php-ext-install \

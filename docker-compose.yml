@@ -38,23 +38,44 @@ services:
     restart: always
     container_name: nginx
 
+#  php:
+##    build: ./server/php
+##    原生构建太慢了如果你自己需要改的话就到上一个目录吧
+#    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+#    ports:
+#      - "9501"
+#    volumes:
+#      - ./www:/www
+#      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
+##      - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
+##      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
+#      - ./server/php/etc/hosts:/etc/hosts
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.4
+#    restart: always
+#    container_name: php
+
   php:
-#    build: ./server/php
-#    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    #    build: ./server/php
+    #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
+    image: charles/php7.3
     ports:
-      - "9501:9501"
+      - "9000"
+      - "9502"
     volumes:
       - ./www:/www
-      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
-      - ./server/php/etc/hosts:/etc/hosts
+#      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
+#      - ./server/php/etc/hosts:/etc/hosts
     networks:
       server:
-        ipv4_address: 172.27.0.4
+        ipv4_address: 172.27.0.12
     restart: always
     container_name: php
+    stdin_open: true
+    tty: true
 
   redis:
     build: ./server/redis

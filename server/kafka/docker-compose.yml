@@ -13,7 +13,7 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181
     volumes:
-      - ./kafka1/logs:/kafka
+      - /Users/shaozhipeng/Development/volume/kfkluster/kafka1/logs:/kafka
     external_links:
       - zoo1
       - zoo2
@@ -34,7 +34,7 @@ services:
       KAFKA_ADVERTISED_PORT: 9093
       KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181
     volumes:
-      - ./kafka2/logs:/kafka
+      - /Users/shaozhipeng/Development/volume/kfkluster/kafka2/logs:/kafka
     external_links:
       - zoo1
       - zoo2
@@ -55,10 +55,16 @@ services:
       KAFKA_ADVERTISED_PORT: 9094
       KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181
     volumes:
-      - ./kafka3/logs:/kafka
+      - /Users/shaozhipeng/Development/volume/kfkluster/kafka3/logs:/kafka
+    external_links:
+      - zoo1
+      - zoo2
+      - zoo3
     networks:
-      kafka:
+      br17219:
         ipv4_address: 172.19.0.16
 
 networks:
-  kafka:
+  br17219:
+    external:
+      name: br17219

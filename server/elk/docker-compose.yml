@@ -31,9 +31,9 @@ services:
     container_name: es-slave1
     image: elasticsearch:7.4.2
     restart: always
-    ports:
-      - 9201:9200
-      - 9301:9300
+#    ports:
+#      - 9201:9200
+#      - 9301:9300
     volumes:
       - ./elasticsearch/slave1/conf/es-slave1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/slave1/data:/usr/share/elasticsearch/data
@@ -56,9 +56,9 @@ services:
     container_name: es-slave2
     image: elasticsearch:7.4.2
     restart: always
-    ports:
-      - 9202:9200
-      - 9302:9300
+#    ports:
+#      - 9202:9200
+#      - 9302:9300
     volumes:
       - ./elasticsearch/slave2/conf/es-slave2.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/slave2/data:/usr/share/elasticsearch/data
@@ -88,7 +88,7 @@ services:
     volumes:
       - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
     environment:
-      - elasticsearch.hosts=http://192.168.2.105:9200
+      - elasticsearch.hosts=http://es-master:9200
       - TIMEZONE=Asia/ShangHai
     networks:
       - elknet
@@ -115,26 +115,26 @@ services:
       - elknet
 
   # filebeat
-  filebeat:
-    container_name: filebeat
-    hostname: filebeat
-    image: docker.elastic.co/beats/filebeat:7.4.2
-    restart: always
-    volumes:
-      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ./logs:/var/log
-      - ./filebeat/logs:/usr/share/filebeat/logs
-      - ./filebeat/data:/usr/share/filebeat/data
-    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
-    environment:
-      - TIMEZONE=Asia/ShangHai
-    # 依赖服务[可无]
-    depends_on:
-      - es-master
-      - logstash
-      - kibana
-    networks:
-      - elknet
+#  filebeat:
+#    container_name: filebeat
+#    hostname: filebeat
+#    image: docker.elastic.co/beats/filebeat:7.4.2
+#    restart: always
+#    volumes:
+#      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+#      - ./logs:/var/log
+#      - ./filebeat/logs:/usr/share/filebeat/logs
+#      - ./filebeat/data:/usr/share/filebeat/data
+#    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
+#    environment:
+#      - TIMEZONE=Asia/ShangHai
+#    # 依赖服务[可无]
+#    depends_on:
+#      - es-master
+#      - logstash
+#      - kibana
+#    networks:
+#      - elknet
 
   # es-head
   es-head:

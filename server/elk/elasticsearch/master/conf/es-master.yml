@@ -33,7 +33,7 @@ http.cors.allow-origin: "*"
 
 ################################ basic ssl #########################################
 # xpack.security.enabled: true
-# xpack.license.self_generated.type: basic
+# xpack.license.self_gene rated.type: basic
 # xpack.security.transport.ssl.enabled: true
 # xpack.security.transport.ssl.verification_mode: certificate
 # xpack.security.transport.ssl.keystore.path: certs/elastic-certificates.p12

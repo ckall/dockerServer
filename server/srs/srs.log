@@ -2643,3 +2643,340 @@ thread [1][953]: do_publishing() [src/app/srs_app_rtmp_conn.cpp:897][errno=62](I
 [2020-05-09 05:54:14.619][Trace][1][900] http: api mount /console to ./objs/nginx/html/console
 [2020-05-09 05:54:14.620][Warn][1][900][16] enable auto reload for docker
 [2020-05-09 05:54:14.621][Trace][1][900] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 01:46:44.348][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 01:46:44.351][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 01:46:44.352][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 01:46:44.352][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 01:46:44.354][Trace][1][0] srs checking config...
+[2020-05-15 01:46:44.354][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 01:46:44.355][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 01:46:44.355][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 01:46:44.356][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 01:46:44.357][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 01:46:44.357][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 01:46:44.358][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 01:46:44.358][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 01:46:44.360][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 01:46:44.361][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 01:46:44.361][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 01:46:44.362][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 01:46:44.362][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 01:46:44.363][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 01:46:44.364][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 01:46:44.364][Trace][1][0] st_init success, use epoll
+[2020-05-15 01:46:44.365][Trace][1][228] server main cid=228, pid=1, ppid=0, asprocess=0
+[2020-05-15 01:46:44.365][Trace][1][228] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 01:46:44.366][Trace][1][228] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 01:46:44.366][Trace][1][228] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 01:46:44.367][Trace][1][228] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 01:46:44.368][Trace][1][228] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 01:46:44.370][Trace][1][228] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 01:46:44.370][Warn][1][228][16] enable auto reload for docker
+[2020-05-15 01:46:44.371][Trace][1][228] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 02:35:28.562][Trace][1][233] sig=15, user terminate program, fast quit
+[2020-05-15 02:35:28.838][Trace][1][228] cleanup for quit signal fast=1, grace=0
+[2020-05-15 02:35:28.839][Warn][1][228][11] main cycle terminated, system quit normally.
+[2020-05-15 02:35:28.941][Trace][1][228] srs disposed
+[2020-05-15 02:35:28.941][Trace][1][228] srs terminated
+[2020-05-15 02:35:40.909][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 02:35:40.912][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 02:35:40.915][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 02:35:40.915][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 02:35:40.916][Trace][1][0] srs checking config...
+[2020-05-15 02:35:40.916][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 02:35:40.917][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 02:35:40.918][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 02:35:40.918][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 02:35:40.919][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 02:35:40.919][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 02:35:40.919][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 02:35:40.920][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 02:35:40.920][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 02:35:40.920][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 02:35:40.921][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 02:35:40.921][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 02:35:40.921][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 02:35:40.922][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 02:35:40.922][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 02:35:40.923][Trace][1][0] st_init success, use epoll
+[2020-05-15 02:35:40.923][Trace][1][404] server main cid=404, pid=1, ppid=0, asprocess=0
+[2020-05-15 02:35:40.924][Trace][1][404] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 02:35:40.924][Trace][1][404] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 02:35:40.925][Trace][1][404] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 02:35:40.925][Trace][1][404] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 02:35:40.925][Trace][1][404] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 02:35:40.926][Trace][1][404] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 02:35:40.927][Warn][1][404][16] enable auto reload for docker
+[2020-05-15 02:35:40.927][Trace][1][404] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 02:39:50.822][Trace][1][409] sig=15, user terminate program, fast quit
+[2020-05-15 02:39:51.169][Trace][1][404] cleanup for quit signal fast=1, grace=0
+[2020-05-15 02:39:51.169][Warn][1][404][11] main cycle terminated, system quit normally.
+[2020-05-15 02:39:51.281][Trace][1][404] srs disposed
+[2020-05-15 02:39:51.291][Trace][1][404] srs terminated
+[2020-05-15 02:40:06.565][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 02:40:06.567][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 02:40:06.567][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 02:40:06.567][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 02:40:06.568][Trace][1][0] srs checking config...
+[2020-05-15 02:40:06.568][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 02:40:06.569][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 02:40:06.569][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 02:40:06.570][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 02:40:06.570][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 02:40:06.570][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 02:40:06.571][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 02:40:06.571][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 02:40:06.574][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 02:40:06.575][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 02:40:06.576][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 02:40:06.576][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 02:40:06.577][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 02:40:06.579][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 02:40:06.579][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 02:40:06.581][Trace][1][0] st_init success, use epoll
+[2020-05-15 02:40:06.581][Trace][1][748] server main cid=748, pid=1, ppid=0, asprocess=0
+[2020-05-15 02:40:06.582][Trace][1][748] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 02:40:06.583][Trace][1][748] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 02:40:06.583][Trace][1][748] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 02:40:06.584][Trace][1][748] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 02:40:06.584][Trace][1][748] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 02:40:06.585][Trace][1][748] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 02:40:06.585][Warn][1][748][16] enable auto reload for docker
+[2020-05-15 02:40:06.586][Trace][1][748] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 02:40:59.215][Trace][1][753] sig=15, user terminate program, fast quit
+[2020-05-15 02:40:59.635][Trace][1][748] cleanup for quit signal fast=1, grace=0
+[2020-05-15 02:40:59.636][Warn][1][748][11] main cycle terminated, system quit normally.
+[2020-05-15 02:40:59.736][Trace][1][748] srs disposed
+[2020-05-15 02:40:59.737][Trace][1][748] srs terminated
+[2020-05-15 02:41:11.498][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 02:41:11.499][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 02:41:11.500][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 02:41:11.500][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 02:41:11.500][Trace][1][0] srs checking config...
+[2020-05-15 02:41:11.501][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 02:41:11.501][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 02:41:11.502][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 02:41:11.502][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 02:41:11.502][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 02:41:11.502][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 02:41:11.503][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 02:41:11.503][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 02:41:11.503][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 02:41:11.504][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 02:41:11.504][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 02:41:11.504][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 02:41:11.505][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 02:41:11.505][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 02:41:11.505][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 02:41:11.506][Trace][1][0] st_init success, use epoll
+[2020-05-15 02:41:11.506][Trace][1][628] server main cid=628, pid=1, ppid=0, asprocess=0
+[2020-05-15 02:41:11.506][Trace][1][628] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 02:41:11.507][Trace][1][628] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 02:41:11.507][Trace][1][628] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 02:41:11.508][Trace][1][628] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 02:41:11.508][Trace][1][628] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 02:41:11.508][Trace][1][628] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 02:41:11.509][Warn][1][628][16] enable auto reload for docker
+[2020-05-15 02:41:11.509][Trace][1][628] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 03:04:28.090][Trace][1][633] sig=15, user terminate program, fast quit
+[2020-05-15 03:04:28.846][Trace][1][628] cleanup for quit signal fast=1, grace=0
+[2020-05-15 03:04:28.847][Warn][1][628][11] main cycle terminated, system quit normally.
+[2020-05-15 03:04:28.948][Trace][1][628] srs disposed
+[2020-05-15 03:04:28.948][Trace][1][628] srs terminated
+[2020-05-15 03:09:15.836][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 03:09:15.846][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 03:09:15.865][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 03:09:15.915][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 03:09:15.948][Trace][1][0] srs checking config...
+[2020-05-15 03:09:15.967][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 03:09:15.982][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 03:09:15.987][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 03:09:15.988][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 03:09:15.991][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 03:09:15.992][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 03:09:15.994][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 03:09:15.998][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 03:09:16.002][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 03:09:16.003][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 03:09:16.005][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 03:09:16.015][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 03:09:16.016][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 03:09:16.024][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 03:09:16.026][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 03:09:16.028][Trace][1][0] st_init success, use epoll
+[2020-05-15 03:09:16.029][Trace][1][380] server main cid=380, pid=1, ppid=0, asprocess=0
+[2020-05-15 03:09:16.030][Trace][1][380] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 03:09:16.041][Trace][1][380] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 03:09:16.052][Trace][1][380] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 03:09:16.061][Trace][1][380] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 03:09:16.065][Trace][1][380] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 03:09:16.087][Trace][1][380] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 03:09:16.098][Warn][1][380][16] enable auto reload for docker
+[2020-05-15 03:09:16.100][Trace][1][380] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 03:36:25.545][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 03:36:25.562][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 03:36:25.564][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 03:36:25.564][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 03:36:25.565][Trace][1][0] srs checking config...
+[2020-05-15 03:36:25.566][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 03:36:25.566][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 03:36:25.567][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 03:36:25.568][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 03:36:25.568][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 03:36:25.568][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 03:36:25.569][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 03:36:25.570][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 03:36:25.570][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 03:36:25.570][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 03:36:25.572][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 03:36:25.572][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 03:36:25.572][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 03:36:25.574][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 03:36:25.574][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 03:36:25.575][Trace][1][0] st_init success, use epoll
+[2020-05-15 03:36:25.575][Trace][1][700] server main cid=700, pid=1, ppid=0, asprocess=0
+[2020-05-15 03:36:25.576][Trace][1][700] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 03:36:25.578][Trace][1][700] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 03:36:25.578][Trace][1][700] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 03:36:25.578][Trace][1][700] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 03:36:25.579][Trace][1][700] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 03:36:25.579][Trace][1][700] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 03:36:25.581][Warn][1][700][16] enable auto reload for docker
+[2020-05-15 03:36:25.582][Trace][1][700] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 05:58:03.602][Warn][1][700][11] clock jump, history=1589518020059508us, now=1589522283602107us, diff=4263542599us
+[2020-05-15 06:05:58.153][Trace][1][705] sig=15, user terminate program, fast quit
+[2020-05-15 06:05:58.960][Trace][1][700] cleanup for quit signal fast=1, grace=0
+[2020-05-15 06:05:58.961][Warn][1][700][11] main cycle terminated, system quit normally.
+[2020-05-15 06:05:59.067][Trace][1][700] srs disposed
+[2020-05-15 06:05:59.067][Trace][1][700] srs terminated
+[2020-05-15 06:06:11.168][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 06:06:11.171][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 06:06:11.172][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 06:06:11.173][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 06:06:11.175][Trace][1][0] srs checking config...
+[2020-05-15 06:06:11.175][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 06:06:11.176][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 06:06:11.177][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 06:06:11.177][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 06:06:11.178][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 06:06:11.178][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 06:06:11.178][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 06:06:11.179][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 06:06:11.179][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 06:06:11.180][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 06:06:11.180][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 06:06:11.180][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 06:06:11.181][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 06:06:11.181][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 06:06:11.182][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 06:06:11.182][Trace][1][0] st_init success, use epoll
+[2020-05-15 06:06:11.183][Trace][1][492] server main cid=492, pid=1, ppid=0, asprocess=0
+[2020-05-15 06:06:11.183][Trace][1][492] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 06:06:11.184][Trace][1][492] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 06:06:11.185][Trace][1][492] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 06:06:11.186][Trace][1][492] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 06:06:11.186][Trace][1][492] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 06:06:11.187][Trace][1][492] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 06:06:11.188][Warn][1][492][16] enable auto reload for docker
+[2020-05-15 06:06:11.192][Trace][1][492] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 06:07:26.281][Trace][1][497] sig=15, user terminate program, fast quit
+[2020-05-15 06:07:27.269][Trace][1][492] cleanup for quit signal fast=1, grace=0
+[2020-05-15 06:07:27.269][Warn][1][492][11] main cycle terminated, system quit normally.
+[2020-05-15 06:07:27.370][Trace][1][492] srs disposed
+[2020-05-15 06:07:27.375][Trace][1][492] srs terminated
+[2020-05-15 06:07:39.514][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 06:07:39.519][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 06:07:39.523][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 06:07:39.527][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 06:07:39.528][Trace][1][0] srs checking config...
+[2020-05-15 06:07:39.532][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 06:07:39.536][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 06:07:39.536][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 06:07:39.538][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 06:07:39.538][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 06:07:39.546][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 06:07:39.553][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 06:07:39.557][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 06:07:39.558][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 06:07:39.559][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 06:07:39.564][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 06:07:39.565][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 06:07:39.565][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 06:07:39.566][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 06:07:39.566][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 06:07:39.567][Trace][1][0] st_init success, use epoll
+[2020-05-15 06:07:39.568][Trace][1][652] server main cid=652, pid=1, ppid=0, asprocess=0
+[2020-05-15 06:07:39.570][Trace][1][652] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 06:07:39.574][Trace][1][652] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 06:07:39.575][Trace][1][652] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 06:07:39.576][Trace][1][652] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 06:07:39.577][Trace][1][652] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 06:07:39.579][Trace][1][652] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 06:07:39.581][Warn][1][652][16] enable auto reload for docker
+[2020-05-15 06:07:39.586][Trace][1][652] auto reload watching fd=11, watch=1, file=conf
+[2020-05-15 06:10:23.387][Trace][1][657] sig=15, user terminate program, fast quit
+[2020-05-15 06:10:23.745][Trace][1][652] cleanup for quit signal fast=1, grace=0
+[2020-05-15 06:10:23.746][Warn][1][652][11] main cycle terminated, system quit normally.
+[2020-05-15 06:10:23.848][Trace][1][652] srs disposed
+[2020-05-15 06:10:23.848][Trace][1][652] srs terminated
+[2020-05-15 06:10:36.965][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-15 06:10:36.967][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-15 06:10:36.969][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-15 06:10:36.970][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-15 06:10:36.973][Trace][1][0] srs checking config...
+[2020-05-15 06:10:36.975][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-15 06:10:36.976][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-15 06:10:36.978][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-15 06:10:36.979][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-15 06:10:36.981][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-15 06:10:36.983][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-15 06:10:36.983][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-15 06:10:36.984][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-15 06:10:36.986][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-15 06:10:36.986][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-15 06:10:36.987][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-15 06:10:36.987][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-15 06:10:36.988][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-15 06:10:36.989][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-15 06:10:36.990][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-15 06:10:36.990][Trace][1][0] st_init success, use epoll
+[2020-05-15 06:10:36.997][Trace][1][132] server main cid=132, pid=1, ppid=0, asprocess=0
+[2020-05-15 06:10:36.998][Trace][1][132] write pid=1 to ./objs/srs.pid success!
+[2020-05-15 06:10:36.999][Trace][1][132] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-15 06:10:37.005][Trace][1][132] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-15 06:10:37.006][Trace][1][132] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-15 06:10:37.006][Trace][1][132] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-15 06:10:37.008][Trace][1][132] http: api mount /console to ./objs/nginx/html/console
+[2020-05-15 06:10:37.010][Warn][1][132][16] enable auto reload for docker
+[2020-05-15 06:10:37.011][Trace][1][132] auto reload watching fd=11, watch=1, file=conf
+[2020-05-18 01:32:00.030][Trace][1][0] SRS/3.0.139(OuXuli), The MIT License (MIT)
+[2020-05-18 01:32:00.059][Trace][1][0] contributors: winlin<winlin@vip.126.com> wenjie.zhao<740936897@qq.com> xiangcheng.liu<liuxc0116@foxmail.com> naijia.liu<youngcow@youngcow.net> alcoholyi<alcoholyi@qq.com> byteman<wangchen2011@gmail.com> chad.wang<chad.wang.cn@gmail.com> suhetao<suhetao@gmail.com> Johnny<fengjihu@163.com> karthikeyan<keyanmca@gmail.com> StevenLiu<lq@chinaffmpeg.org> zhengfl<zhengfl_1989@126.com> tufang14<breadbean1449@gmail.com> allspace<allspace@gmail.com> niesongsong<nie950@gmail.com> rudeb0t<nimrod@themanxgroup.tw> CallMeNP<np.liamg@gmail.com> synote<synote@qq.com> lovecat<littlefawn@163.com> panda1986<542638787@qq.com> YueHonghui<hongf.yue@hotmail.com> ThomasDreibholz<dreibh@simula.no> JuntaoLiu<juntliu@gmail.com> RocFang<fangpeng1986@gmail.com> MakarovYaroslav<yaroslav.makarov.97@mail.ru> MirkoVelic<mvelic@inoxx.net> HuiZhang(huzhang2)<huzhang2@cisco.com> OtterWa<simpleotter23@gmail.com> walkermi<172192667@qq.com> haofz<fuzhuang.hao@vhall.com> ME_Kun_Han<hanvskun@hotmail.com> ljx0305<ljx0305@gmail.com> cenxinwei<censhanhe@163.com> StarBrilliant<m13253@hotmail.com> xubin<xubin@chnvideo.com> intliang<yintiliang@gmail.com> flowerwrong<sysuyangkang@gmail.com> YLX<568414379@qq.com> J<guotaojiang@qq.com> Harlan<hailiang@gvrcraft.com> hankun<hankun@bravovcloud.com> JonathanBarratt<jonathan.barratt@gmail.com> KeeganH<keeganwharris@gmail.com> StevenLiu<lingjiujianke@gmail.com> liuxc0116<liuxc0116@gmail.com> ChengdongZhang<lmajzcd@sina.com> lovacat<lovecat@china.sina.com> qiang.li<qiang.li@verycdn.com.cn> HungMingWu<u9089000@gmail.com> Himer<xishizhaohua@qq.com> xialixin<xlx0625@163.com> alphonsetai<tyh_123@163.com> Michael.Ma<wnpllr@gmail.com> lam2003<linmin3@yy.com> 
+[2020-05-18 01:32:00.060][Trace][1][0] cwd=/usr/local/srs, work_dir=./, build: 2020-03-29 11:35:16, configure: --x86-x64 , uname: Linux 8023565bde72 4.4.0-1060-aws #69-Ubuntu SMP Sun May 20 13:42:07 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux, osx: 0
+[2020-05-18 01:32:00.060][Trace][1][0] configure detail: --prefix=/usr/local/srs --with-hls --with-hds --with-dvr --with-ssl --with-transcode --with-ingest --with-stat --with-http-callback --with-http-server --with-stream-caster --with-http-api --with-librtmp --without-research --without-utest --without-gperf --without-gmc --without-gmd --without-gmp --without-gcp --without-gprof --log-trace --cc=gcc --cxx=g++ --ar=ar --ld=ld --randlib=randlib
+[2020-05-18 01:32:00.063][Trace][1][0] srs checking config...
+[2020-05-18 01:32:00.065][Trace][1][0] ips, iface[0] eth0 ipv4 0x11043 172.27.0.9
+[2020-05-18 01:32:00.066][Trace][1][0] devices, intranet eth0 172.27.0.9
+[2020-05-18 01:32:00.067][Warn][1][0][0] stats network use index=0, ip=172.27.0.9
+[2020-05-18 01:32:00.067][Warn][1][0][0] stats disk list: sda sdb xvda xvdb 
+[2020-05-18 01:32:00.067][Trace][1][0] write log to file ./objs/srs.log
+[2020-05-18 01:32:00.070][Trace][1][0] you can: tailf ./objs/srs.log
+[2020-05-18 01:32:00.070][Trace][1][0] @see: https://github.com/ossrs/srs/wiki/v1_CN_SrsLog
+[2020-05-18 01:32:00.071][Trace][1][0] features, rch:on, dash:on, hls:on, hds:on, hc:on, ha:on, hs:on, hp:on, dvr:on, trans:on, inge:on, stat:on, sc:on
+[2020-05-18 01:32:00.071][Trace][1][0] SRS on  amd64 x86_64, conf:conf/srs.conf, limit:1000, writev:1024, encoding:little-endian, HZ:100
+[2020-05-18 01:32:00.072][Trace][1][0] mw sleep:350ms. mr enabled:on, default:0, sleep:350ms
+[2020-05-18 01:32:00.072][Trace][1][0] gc:on, pq:30000ms, cscc:[0,16), csa:on, tn:on(may hurts performance), ss:auto(guess by merged write)
+[2020-05-18 01:32:00.073][Trace][1][0] system default latency(ms): mw(0-350) + mr(0-350) + play-queue(0-30000)
+[2020-05-18 01:32:00.073][Warn][1][0][0] SRS/3.0.139 is beta
+[2020-05-18 01:32:00.075][Trace][1][0] http flv live stream, vhost=__defaultVhost__, mount=[vhost]/[app]/[stream].flv
+[2020-05-18 01:32:00.077][Trace][1][0] http: root mount to ./objs/nginx/html
+[2020-05-18 01:32:00.077][Trace][1][0] st_init success, use epoll
+[2020-05-18 01:32:00.077][Trace][1][844] server main cid=844, pid=1, ppid=0, asprocess=0
+[2020-05-18 01:32:00.078][Trace][1][844] write pid=1 to ./objs/srs.pid success!
+[2020-05-18 01:32:00.080][Trace][1][844] RTMP listen at tcp://0.0.0.0:1935, fd=8
+[2020-05-18 01:32:00.081][Trace][1][844] HTTP-API listen at tcp://0.0.0.0:1985, fd=9
+[2020-05-18 01:32:00.082][Trace][1][844] HTTP-Server listen at tcp://0.0.0.0:8080, fd=10
+[2020-05-18 01:32:00.082][Trace][1][844] signal installed, reload=1, reopen=10, fast_quit=15, grace_quit=3
+[2020-05-18 01:32:00.083][Trace][1][844] http: api mount /console to ./objs/nginx/html/console
+[2020-05-18 01:32:00.083][Warn][1][844][16] enable auto reload for docker
+[2020-05-18 01:32:00.084][Trace][1][844] auto reload watching fd=11, watch=1, file=conf
+[2020-05-18 06:03:47.633][Warn][1][844][11] clock jump, history=1589777196976066us, now=1589781827633094us, diff=4630657028us

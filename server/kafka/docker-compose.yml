@@ -52,6 +52,22 @@ services:
       kafka:
         ipv4_address: 172.20.0.16
 
+  kafka-manager:
+    image: sheepkiller/kafka-manager            # 如果要安装web管理工具可以同时安装这个，最后通过苏主机IP的9000端口进行访问，例如172.31.148.174:9000
+    environment:
+      ZK_HOSTS: kafka1:62181,kafka2:62182,kafka3:62183
+      APPLICATION_SECRET: "letmein"
+    ports:
+      - "39000:9000"
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+    expose:
+      - "9000"
+    networks:
+      kafka:
+        ipv4_address: 172.20.0.13
 networks:
   kafka:
     ipam:

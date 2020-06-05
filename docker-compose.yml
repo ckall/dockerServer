@@ -59,16 +59,17 @@ services:
   php:
     #    build: ./server/php
     #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: charles/php7.3
+    image: charles/phptest
     ports:
       - "9000"
       - "9502"
     volumes:
       - ./www:/www
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
-#      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
-#      - ./server/php/etc/hosts:/etc/hosts
+      - ./server/php/config/conf.d:/usr/local/etc/php/conf.d
+#      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
+      - ./server/php/etc/hosts:/etc/hosts
     networks:
       server:
         ipv4_address: 172.27.0.12

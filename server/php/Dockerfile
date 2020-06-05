@@ -27,7 +27,7 @@ RUN apt-get update \
 # Clean apt cache
     && rm -rf /var/lib/apt/lists/*
 
-# Install composer
+# Install    composer
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && composer self-update --clean-backups \
@@ -50,6 +50,29 @@ RUN curl -sS https://getcomposer.org/installer | php \
     ) \
     && rm -r swoole \
     && docker-php-ext-enable swoole \
+#librdkafka
+    && wget https://github.com/edenhill/librdkafka/archive/v1.4.2.tar.gz -O librdkafka.tar.gz \
+    && mkdir -p librdkafka \
+    && tar -xf librdkafka.tar.gz -C librdkafka --strip-components=1 \
+    && rm librdkafka.tar.gz \
+    && ( \
+            cd librdkafka \
+            && ./configure \
+            && make -j$(nproc) \
+            && make install \
+        ) \
+#rdkafka
+    && wget https://github.com/arnaud-lb/php-rdkafka/archive/4.0.3.tar.gz -O rdkafka.tar.gz \
+    && mkdir -p rdkafka \
+    && tar -xf rdkafka.tar.gz -C rdkafka --strip-components=1 \
+    && rm rdkafka.tar.gz \
+    && ( \
+            cd rdkafka \
+            && phpize \
+            && ./configure \
+            && make -j$(nproc) \
+            && make install \
+        ) \
 # Clear dev deps
     && apt-get clean \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \

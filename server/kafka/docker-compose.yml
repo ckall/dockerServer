@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
   kafka1:
@@ -11,16 +11,12 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka1
       KAFKA_ADVERTISED_PORT: 9092
-      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181
+      KAFKA_ZOOKEEPER_CONNECT: 172.19.0.11:2181,172.19.0.12:2181,172.19.0.13:2181
     volumes:
-      - /Users/shaozhipeng/Development/volume/kfkluster/kafka1/logs:/kafka
-    external_links:
-      - zoo1
-      - zoo2
-      - zoo3
+      - ./kafka1/logs:/kafka
     networks:
-      br17219:
-        ipv4_address: 172.19.0.14
+      kafka:
+        ipv4_address: 172.20.0.14
 
   kafka2:
     image: wurstmeister/kafka
@@ -32,16 +28,12 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka2
       KAFKA_ADVERTISED_PORT: 9093
-      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181
+      KAFKA_ZOOKEEPER_CONNECT: 172.19.0.11:2181,172.19.0.12:2181,172.19.0.13:2181
     volumes:
-      - /Users/shaozhipeng/Development/volume/kfkluster/kafka2/logs:/kafka
-    external_links:
-      - zoo1
-      - zoo2
-      - zoo3
+      - ./kafka2/logs:/kafka
     networks:
-      br17219:
-        ipv4_address: 172.19.0.15
+      kafka:
+        ipv4_address: 172.20.0.15
 
   kafka3:
     image: wurstmeister/kafka
@@ -53,18 +45,16 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka3
       KAFKA_ADVERTISED_PORT: 9094
-      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181
+      KAFKA_ZOOKEEPER_CONNECT: 172.19.0.11:2181,172.19.0.12:2181,172.19.0.13:2181
     volumes:
-      - /Users/shaozhipeng/Development/volume/kfkluster/kafka3/logs:/kafka
-    external_links:
-      - zoo1
-      - zoo2
-      - zoo3
+      - ./kafka3/logs:/kafka
     networks:
-      br17219:
-        ipv4_address: 172.19.0.16
+      kafka:
+        ipv4_address: 172.20.0.16
 
 networks:
-  br17219:
-    external:
-      name: br17219
+  kafka:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1

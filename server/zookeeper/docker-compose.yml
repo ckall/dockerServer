@@ -1,4 +1,4 @@
-version: '3.4'
+version: '2.1'
 
 services:
   zoo1:
@@ -15,7 +15,7 @@ services:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
     networks:
-      br17219:
+      zookeeper:
         ipv4_address: 172.19.0.11
 
   zoo2:
@@ -32,7 +32,7 @@ services:
       ZOO_MY_ID: 2
       ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
     networks:
-      br17219:
+      zookeeper:
         ipv4_address: 172.19.0.12
 
   zoo3:
@@ -49,10 +49,12 @@ services:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
     networks:
-      br17219:
+      zookeeper:
         ipv4_address: 172.19.0.13
 
 networks:
-  br17219:
-    external:
-      name: br17219
+  zookeeper:
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+          gateway: 172.19.0.1

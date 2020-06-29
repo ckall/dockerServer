@@ -57,9 +57,9 @@ services:
 #    container_name: php
 
   php:
-    #    build: ./server/php
+    build: ./server/php
     #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: charles/phptest
+#    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -92,22 +92,22 @@ services:
     restart: always
     container_name: redis
 
-#  mongodb:
-#    build: ./server/mongodb
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - ./server/mongodb/data/db:/data/db #db dir
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-#      MONGO_INITDB_ROOT_PASSWORD: "123456"
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.6
-#    restart: always
-#    container_name: mongodb
-#    command:
-#      --auth
+  mongodb:
+    build: ./server/mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./server/mongodb/data/db:/data/db #db dir
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "mongodb"
+      MONGO_INITDB_ROOT_PASSWORD: "123456"
+    networks:
+      server:
+        ipv4_address: 172.27.0.6
+    restart: always
+    container_name: mongodb
+    command:
+      --auth
 
 
 
@@ -150,6 +150,37 @@ services:
 #        ipv4_address: 172.27.0.9
 #    restart: always
 #    container_name: srs
+
+  phpredisadmin:
+    image: erikdubbelboer/phpredisadmin:latest
+    ports:
+      - "6370:80"
+    depends_on:
+      - redis
+    networks:
+      server:
+        ipv4_address: 172.27.0.10
+    environment:
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
+      - TZ=$TZ
+    container_name: phpredisadmin
+
+  adminmongo:
+    image: mrvautin/adminmongo
+    depends_on:
+      - mongodb
+    ports:
+      - "1234:1234"
+    environment:
+      - HOST=0.0.0.0
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+    networks:
+      server:
+        ipv4_address: 172.27.0.11
+    container_name: adminmongo
+
 
 networks:
   server:

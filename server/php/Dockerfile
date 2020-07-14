@@ -71,6 +71,9 @@ RUN curl -sS https://getcomposer.org/installer | php \
             && make -j$(nproc) \
             && make install \
         ) \
+#安装mongodb
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
 # Clear dev deps
     && apt-get clean \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \

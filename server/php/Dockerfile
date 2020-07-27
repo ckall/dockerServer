@@ -73,7 +73,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
         ) \
 #安装mongodb
     && pecl install mongodb \
-    && docker-php-ext-enable mongodb
+    && docker-php-ext-enable mongodb \
 # Clear dev deps
     && apt-get clean \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \

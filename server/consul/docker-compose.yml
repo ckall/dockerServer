@@ -2,21 +2,27 @@ version: '2.2'
 services:
   consul1:
     build:
-      context: ./
+      context: ./node1
       dockerfile: Dockerfile
     container_name: node1
     restart: always
     networks:
       - consul
+    volumes:
+      - ./node1/data:/consul/data
+      - ./node1/config:/consul/config
 #        ipv4_address: 172.27.0.1
     command: agent -server -bootstrap-expect=3 -node=node1 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
 
   consul2:
     build:
-      context: ./
+      context: ./node2
       dockerfile: Dockerfile
     command: agent -server -retry-join=node1 -node=node2 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
     container_name: node2
+    volumes:
+      - ./node2/data:/consul/data
+      - ./node2/config:/consul/config
     depends_on:
       - consul1
     restart: always
@@ -26,11 +32,14 @@ services:
 
   consul3:
     build:
-      context: ./
+      context: ./node3
       dockerfile: Dockerfile
     container_name: node3
     command: agent -server -retry-join=node1 -node=node3 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
     restart: always
+    volumes:
+      - ./node3/data:/consul/data
+      - ./node3/config:/consul/config
     depends_on:
       - consul1
     networks:
@@ -39,11 +48,14 @@ services:
 
   consul4:
     build:
-      context: ./
+      context: ./node4
       dockerfile: Dockerfile
     container_name: ndoe4
     ports:
       - 8500:8500
+    volumes:
+      - ./node4/data:/consul/data
+      - ./node4/config:/consul/config
     depends_on:
       - consul1
       - consul2

@@ -1,0 +1,63 @@
+version: '2.2'
+services:
+  consul1:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: node1
+    restart: always
+    networks:
+      - consul
+#        ipv4_address: 172.27.0.1
+    command: agent -server -bootstrap-expect=3 -node=node1 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+
+  consul2:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: agent -server -retry-join=node1 -node=node2 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+    container_name: node2
+    depends_on:
+      - consul1
+    restart: always
+    networks:
+      - consul
+
+
+  consul3:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: node3
+    command: agent -server -retry-join=node1 -node=node3 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+    restart: always
+    depends_on:
+      - consul1
+    networks:
+      - consul
+
+
+  consul4:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: ndoe4
+    ports:
+      - 8500:8500
+    depends_on:
+      - consul1
+      - consul2
+      - consul3
+    command: agent -retry-join=node1 -node=ndoe4 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1 -ui
+    restart: always
+    networks:
+      - consul
+
+
+networks:
+  consul:
+#    ipam:
+#      config:
+#        - subnet: 172.27.0.0/50
+#          gateway: 172.27.0.1
+

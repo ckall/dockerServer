@@ -8,8 +8,8 @@ Development of integrated environment based on docker development, such as PHP, 
 * [镜像源](#镜像源切换到国内)
 * [综合环境](#启动容器)
 * [PHP环境](#PHP环境)
-* [GOLANG环境(待完善)](#GOLANG环境)
-* [JAVA环境(待完善)](#JAVA环境)
+* [GO环境](#GO环境)
+* [Python环境(待完善)](#JAVA环境)
 
 ### 安装
 ```shell
@@ -68,3 +68,13 @@ source ~/.bash_profile
 echo "alias dnginx='docker exec -it nginx /bin/sh'" >> ~/.bash_profile
 source ~/.bash_profile
 ```
+
+
+#GO环境教程
+1.把我的server/golang里面的Dockerfile加入到自己的项目里面  
+```$xslt
+!!!注意入口文件必须是main.go
+go build -o 
+```
+
+

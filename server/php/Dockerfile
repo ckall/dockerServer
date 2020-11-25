@@ -77,6 +77,13 @@ RUN curl -sS https://getcomposer.org/installer | php \
 # Clear dev deps
     && apt-get clean \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+#安装nsq
+    && https://github.com/yunnian/php-nsq.git
+    && cd php-nsq \
+    && phpize \
+    && ./configure \
+    && make  \
+    && make install \
 # Timezone
     && cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && echo "${TIMEZONE}" > /etc/timezone \

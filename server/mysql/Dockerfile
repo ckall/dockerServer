@@ -1,4 +1,4 @@
-FROM mysql:8.0
+FROM mysql:5.7
 
 
 MAINTAINER "ckallcloud@foxmail.com"

@@ -1,4 +1,4 @@
-version: "2.1"
+version: "2.2"
 services:
 
   mysql:
@@ -27,11 +27,11 @@ services:
     volumes:
       - ./www:/www
       - ./server/nginx/conf.d:/etc/nginx/conf.d
-      - ./server/nginx/upstream:/etc/nginx/upstream
-      - ./server/nginx/cert:/etc/nginx/cert
+#      - ./server/nginx/upstream:/etc/nginx/upstream
+#      - ./server/nginx/cert:/etc/nginx/cert
       - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server/nginx/log/www:/etc/nginx/log/www
-      - ./server/nginx/log/error.log:/var/log/nginx/error.log
+#      - ./server/nginx/log/error.log:/var/log/nginx/error.log
     networks:
       server:
         ipv4_address: 172.27.0.3
@@ -57,9 +57,9 @@ services:
 #    container_name: php
 
   php:
-    build: ./server/php
+#    build: ./server/php
     #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-#    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -135,21 +135,21 @@ services:
 #      server:
 #        ipv4_address: 172.27.0.8
 #
-#  srs:
-#    build:
-#      context: ./server/srs
-#    ports:
-#      - 1935:1935
-#      - 1985:1985
-#      - 8080:8080
-#    volumes:
-#      - ./server/srs/conf:/usr/local/srs/conf
-#      - ./server/srs/srs.log:/usr/local/srs/objs/srs.log
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.9
-#    restart: always
-#    container_name: srs
+  srs:
+    build:
+      context: ./server/srs
+    ports:
+      - 1935:1935
+      - 1985:1985
+      - 8081:8080
+    volumes:
+      - ./server/srs/conf:/usr/local/srs/conf
+      - ./server/srs/srs.log:/usr/local/srs/objs/srs.log
+    networks:
+      server:
+        ipv4_address: 172.27.0.9
+    restart: always
+    container_name: srs
 
   phpredisadmin:
     image: erikdubbelboer/phpredisadmin:latest
@@ -181,10 +181,114 @@ services:
         ipv4_address: 172.27.0.11
     container_name: adminmongo
 
+#  xthk_live_api:
+#    build:
+#      context: ./server/golang
+#      dockerfile: Dockerfile
+#    ports:
+#      - 8089:8088
+#    volumes:
+#      - ./www/go/xthk_online_live_go_api:/var/www/xthk_online_live_go_api
+#    restart: always
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.17
+#    container_name: xthk_live_api
 
+#  ffmpeg:
+#    build: ./server/ffmpeg
+#    ports:
+#      - 8082:8080
+#    volumes:
+#      - ./server/ffmpeg/app:/mnt/app/
+#    restart: always
+#    container_name: ffmpeg
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.15
+
+#  python:
+#    build: ./server/python
+#    restart: always
+#    container_name: python
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.16
+  jobmanager:
+    image: flink:1.11.2-scala_2.11
+    ports:
+      - "8082:8081"
+    command: jobmanager
+#    volumes:
+#      - ./server/flink/jobmanager/conf:/opt/flink/conf
+#      - ./server/flink/jobmanager/log:/opt/flink/log
+#      - ./server/flink/jobmanager/plugins:/opt/flink/plugins #添加扩展
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+
+
+  taskmanager:
+    image: flink:1.11.2-scala_2.11
+    depends_on:
+      - jobmanager
+    command: taskmanager
+#    volumes:
+#      - ./server/flink/taskmanager/conf:/opt/flink/conf
+#      - ./server/flink/taskmanager/log:/opt/flink/log
+#      - ./server/flink/taskmanager/plugins:/opt/flink/plugins #添加扩展
+    scale: 1 #使用的语言
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+
+  gitlab:
+    build:
+      context: ./server/gitlab
+      dockerfile: Dockerfile
+    restart: always
+    container_name: gitlab
+    hostname: 'localhost:9001'
+    environment:
+      TZ: "Asia/Shanghai"
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails["time_zone"] = "Asia/Shanghai"
+        gitlab_rails["gitlab_shell_ssh_port"] = 22
+        nginx["listen_port"] = 80
+    ports:
+      - '9001:80'
+#      - '443'
+#      - '22'
+    volumes:
+      - ./server/gitlab/config:/etc/gitlab
+      - ./server/gitlab/logs:/var/log/gitlab
+#      - ./server/gitlab/data:/var/opt/gitlab
+      - gitlab-data:/var/opt/gitlab
+    networks:
+      server:
+        ipv4_address: 172.27.0.18
+
+  grafana:
+    image: grafana/grafana:6.0.1
+    environment:
+      GF_LOG_LEVEL: error
+      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+    volumes:
+      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"
+    restart: always
+    container_name: grafana
+volumes:
+  gitlab-data:
 networks:
   server:
     ipam:
       config:
-        - subnet: 172.27.0.0/16
+        - subnet: 172.27.0.0/20
           gateway: 172.27.0.1

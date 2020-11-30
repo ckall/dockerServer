@@ -27,39 +27,22 @@ services:
     volumes:
       - ./www:/www
       - ./server/nginx/conf.d:/etc/nginx/conf.d
-#      - ./server/nginx/upstream:/etc/nginx/upstream
-#      - ./server/nginx/cert:/etc/nginx/cert
+      #      - ./server/nginx/upstream:/etc/nginx/upstream
+      #      - ./server/nginx/cert:/etc/nginx/cert
       - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server/nginx/log/www:/etc/nginx/log/www
-#      - ./server/nginx/log/error.log:/var/log/nginx/error.log
+    #      - ./server/nginx/log/error.log:/var/log/nginx/error.log
     networks:
       server:
         ipv4_address: 172.27.0.3
     restart: always
     container_name: nginx
 
-#  php:
-##    build: ./server/php
-##    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-#    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
-#    ports:
-#      - "9501"
-#    volumes:
-#      - ./www:/www
-#      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
-##      - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
-##      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
-#      - ./server/php/etc/hosts:/etc/hosts
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.4
-#    restart: always
-#    container_name: php
 
   php:
-#    build: ./server/php
+    build: ./server/php
     #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    #image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -67,7 +50,7 @@ services:
       - ./www:/www
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/conf.d:/usr/local/etc/php/conf.d
-#      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
+      - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
       - ./server/php/etc/hosts:/etc/hosts
     networks:
@@ -109,32 +92,6 @@ services:
     command:
       --auth
 
-
-
-#  yapi:
-#    image: mrjin/yapi:latest
-#    container_name: yapi
-#    environment:
-#      - VERSION=1.5.6
-#      - LOG_PATH=/tmp/yapi.log
-#      - HOME=/home
-#      - PORT=3000
-#      - ADMIN_EMAIL=ckallcloud@foxmail.com
-#      - DB_SERVER=mongodb
-#      - DB_NAME=yapi
-#      - DB_PORT=27017
-#    restart: always
-#    ports:
-#      - 3000:3000
-#    volumes:
-#      - ./server/yapi/log:/home/vendors/log # log dir
-#    depends_on:
-#      - mongodb
-#    entrypoint: "bash /wait-for-it.sh mongodb:27017 -- entrypoint.sh"
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.8
-#
   srs:
     build:
       context: ./server/srs
@@ -181,63 +138,49 @@ services:
         ipv4_address: 172.27.0.11
     container_name: adminmongo
 
-#  xthk_live_api:
-#    build:
-#      context: ./server/golang
-#      dockerfile: Dockerfile
-#    ports:
-#      - 8089:8088
-#    volumes:
-#      - ./www/go/xthk_online_live_go_api:/var/www/xthk_online_live_go_api
-#    restart: always
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.17
-#    container_name: xthk_live_api
 
-#  ffmpeg:
-#    build: ./server/ffmpeg
-#    ports:
-#      - 8082:8080
-#    volumes:
-#      - ./server/ffmpeg/app:/mnt/app/
-#    restart: always
-#    container_name: ffmpeg
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.15
+  ffmpeg:
+    build: ./server/ffmpeg
+    ports:
+      - 8082:8080
+    volumes:
+      - ./server/ffmpeg/app:/mnt/app/
+    restart: always
+    container_name: ffmpeg
+    networks:
+      server:
+        ipv4_address: 172.27.0.15
 
-#  python:
-#    build: ./server/python
-#    restart: always
-#    container_name: python
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.16
+  python:
+    build: ./server/python
+    restart: always
+    container_name: python
+    networks:
+      server:
+        ipv4_address: 172.27.0.16
   jobmanager:
     image: flink:1.11.2-scala_2.11
     ports:
       - "8082:8081"
     command: jobmanager
-#    volumes:
-#      - ./server/flink/jobmanager/conf:/opt/flink/conf
-#      - ./server/flink/jobmanager/log:/opt/flink/log
-#      - ./server/flink/jobmanager/plugins:/opt/flink/plugins #添加扩展
+    #    volumes:
+    #      - ./server/flink/jobmanager/conf:/opt/flink/conf
+    #      - ./server/flink/jobmanager/log:/opt/flink/log
+    #      - ./server/flink/jobmanager/plugins:/opt/flink/plugins #添加扩展
     environment:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
-
 
   taskmanager:
     image: flink:1.11.2-scala_2.11
     depends_on:
       - jobmanager
     command: taskmanager
-#    volumes:
-#      - ./server/flink/taskmanager/conf:/opt/flink/conf
-#      - ./server/flink/taskmanager/log:/opt/flink/log
-#      - ./server/flink/taskmanager/plugins:/opt/flink/plugins #添加扩展
+    #    volumes:
+    #      - ./server/flink/taskmanager/conf:/opt/flink/conf
+    #      - ./server/flink/taskmanager/log:/opt/flink/log
+    #      - ./server/flink/taskmanager/plugins:/opt/flink/plugins #添加扩展
     scale: 1 #使用的语言
     environment:
       - |
@@ -260,12 +203,12 @@ services:
         nginx["listen_port"] = 80
     ports:
       - '9001:80'
-#      - '443'
-#      - '22'
+    #      - '443'
+    #      - '22'
     volumes:
       - ./server/gitlab/config:/etc/gitlab
       - ./server/gitlab/logs:/var/log/gitlab
-#      - ./server/gitlab/data:/var/opt/gitlab
+      #      - ./server/gitlab/data:/var/opt/gitlab
       - gitlab-data:/var/opt/gitlab
     networks:
       server:
@@ -284,8 +227,21 @@ services:
       - "3000:3000"
     restart: always
     container_name: grafana
+
+#  centrifugo:
+#    image: centrifugo/centrifugo
+#    volumes:
+#      - ./server/centrifugo/config:centrifugo
+#    ports:
+#      - 8000:8000
+#    restart: always
+#    container_name: centrifugo
+#    command: centrifugo -c config.json
+
 volumes:
   gitlab-data:
+
+
 networks:
   server:
     ipam:

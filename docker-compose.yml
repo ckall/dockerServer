@@ -75,77 +75,77 @@ services:
     restart: always
     container_name: redis
 
-  mongodb:
-    build: ./server/mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./server/mongodb/data/db:/data/db #db dir
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "123456"
-    networks:
-      server:
-        ipv4_address: 172.27.0.6
-    restart: always
-    container_name: mongodb
-    command:
-      --auth
+#  mongodb:
+#    build: ./server/mongodb
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - ./server/mongodb/data/db:/data/db #db dir
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: "mongodb"
+#      MONGO_INITDB_ROOT_PASSWORD: "123456"
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.6
+#    restart: always
+#    container_name: mongodb
+#    command:
+#      --auth
 
 
-  phpredisadmin:
-    image: erikdubbelboer/phpredisadmin:latest
-    ports:
-      - "6370:80"
-    depends_on:
-      - redis
-    networks:
-      server:
-        ipv4_address: 172.27.0.10
-    environment:
-      - REDIS_1_HOST=redis
-      - REDIS_1_PORT=6379
-      - TZ=$TZ
-    container_name: phpredisadmin
+#  phpredisadmin:
+#    image: erikdubbelboer/phpredisadmin:latest
+#    ports:
+#      - "6370:80"
+#    depends_on:
+#      - redis
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.10
+#    environment:
+#      - REDIS_1_HOST=redis
+#      - REDIS_1_PORT=6379
+#      - TZ=$TZ
+#    container_name: phpredisadmin
+#
+#  adminmongo:
+#    image: mrvautin/adminmongo
+#    depends_on:
+#      - mongodb
+#    ports:
+#      - "1234:1234"
+#    environment:
+#      - HOST=0.0.0.0
+#      - DB_HOST=mongodb
+#      - DB_PORT=27017
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.11
+#    container_name: adminmongo
 
-  adminmongo:
-    image: mrvautin/adminmongo
-    depends_on:
-      - mongodb
-    ports:
-      - "1234:1234"
-    environment:
-      - HOST=0.0.0.0
-      - DB_HOST=mongodb
-      - DB_PORT=27017
-    networks:
-      server:
-        ipv4_address: 172.27.0.11
-    container_name: adminmongo
+#  grafana:
+#    image: grafana/grafana:6.0.1
+#    environment:
+#      GF_LOG_LEVEL: error
+#      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+#      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+#    volumes:
+#      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
+#      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+#    ports:
+#      - "3000:3000"
+#    restart: always
+#    container_name: grafana
 
-  grafana:
-    image: grafana/grafana:6.0.1
-    environment:
-      GF_LOG_LEVEL: error
-      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-    volumes:
-      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
-    ports:
-      - "3000:3000"
-    restart: always
-    container_name: grafana
-
-  centrifugo:
-    image: centrifugo/centrifugo
-    volumes:
-      - ./server/centrifugo/config:centrifugo
-    ports:
-      - 8000:8000
-    restart: always
-    container_name: centrifugo
-    command: centrifugo -c config.json
+#  centrifugo:
+#    image: centrifugo/centrifugo
+#    volumes:
+#      - ./server/centrifugo/config:centrifugo
+#    ports:
+#      - 8000:8000
+#    restart: always
+#    container_name: centrifugo
+#    command: centrifugo -c config.json
 
 
 

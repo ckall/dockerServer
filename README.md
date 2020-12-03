@@ -17,7 +17,7 @@ Development of integrated environment based on docker development, such as PHP, 
 curl -sSL https://get.docker.com/ | sh
      
 #国外安装docker-compose
-curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github  .com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 #国内访问安装docker-compose

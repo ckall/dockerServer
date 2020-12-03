@@ -152,6 +152,8 @@ services:
       context: ./server/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
+    ports:
+      - 8099:80
     volumes:
       - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./server/wordpress/data:/var/www/html

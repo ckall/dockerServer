@@ -42,9 +42,9 @@ services:
 
 
   php:
-    build: ./server/php
+    #build: ./server/php
     #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    #    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"

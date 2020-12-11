@@ -152,6 +152,9 @@ services:
       context: ./server/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
+    depends_on:
+      - mysql
+      - redis
     volumes:
       - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./server/wordpress/data:/var/www/html

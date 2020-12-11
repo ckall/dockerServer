@@ -3,6 +3,8 @@ services:
 
   mysql:
     build: ${MYSQL_BUILD_PATH}
+    ports:
+      - 3306:3306
     volumes:
       - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
       - mysql_data:/var/lib/mysql
@@ -25,7 +27,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "3306:3306"
     volumes:
       - ${DIR_MAPPING}:/www
       - ${CONFIG_D_PATH}:/etc/nginx/conf.d
@@ -76,6 +77,8 @@ services:
 
   mongodb:
     build: ./server/mongodb
+    ports:
+      - 27017:27017
     volumes:
       - mongo_data:/data/db #db dir
     environment:

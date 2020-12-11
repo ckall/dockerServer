@@ -116,25 +116,23 @@ services:
         ipv4_address: 172.27.0.8
     container_name: adminmongo
 
-  grafana:
-    image: grafana/grafana:6.0.1
-    environment:
-      GF_LOG_LEVEL: error
-      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-    networks:
-      server:
-        ipv4_address: 172.27.0.9
-    volumes:
-      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
-    restart: always
-    container_name: grafana
+#  grafana:
+#    image: grafana/grafana:6.0.1
+#    environment:
+#      GF_LOG_LEVEL: error
+#      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+#      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+#    networks:
+#      server:
+#        ipv4_address: 172.27.0.9
+#    volumes:
+#      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
+#      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+#    restart: always
+#    container_name: grafana
 
   centrifugo:
-    build:
-      context: ./server/centrifugo
-      dockerfile: Dockerfile
+    image: centrifugo/centrifugo
     container_name: centrifugo
     volumes:
       - ./server/centrifugo/config.json:/centrifugo/config.json
@@ -162,6 +160,7 @@ services:
         ipv4_address: 172.27.0.10
     restart: always
 
+#数据卷
 volumes:
   mysql_data:
   wordpress_data:

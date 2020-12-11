@@ -124,7 +124,7 @@ services:
       GF_PATHS_CONFIG: /etc/grafana/grafana.ini
     networks:
       server:
-        - ipv4_address: 172.27.0.9
+        ipv4_address: 172.27.0.9
     volumes:
       - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards

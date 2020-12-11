@@ -157,7 +157,7 @@ services:
       - redis
     volumes:
       - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./server/wordpress/data:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
       server:
         ipv4_address: 172.27.0.10

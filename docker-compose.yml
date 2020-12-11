@@ -2,48 +2,49 @@ version: "2.2"
 services:
 
   mysql:
-    build: ./server/mysql
-    ports:
-      - "3306:3306"
+    build: ${MYSQL_BUILD_PATH}
     volumes:
-      - ./server/mysql/my.cnf:/etc/my.cnf
-      - ./server/mysql/data:/var/lib/mysql
+      - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
+      - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     restart: always
     networks:
       server:
-        ipv4_address: 172.27.0.2
+        ipv4_address: ${MYSQL_IP}
     container_name: mysql
 
   nginx:
-    build: ./server/nginx
+    build: ${NGINX_BUILD_PATH}
     depends_on:
       - php
       - wordpress
+      - redis
+      - mongodb
+      - mysql
     ports:
-      - "8880:8888"
       - "80:80"
       - "443:443"
+      - "3306:3306"
     volumes:
-      - ./www:/www
-      - ./server/nginx/conf.d:/etc/nginx/conf.d
-      #      - ./server/nginx/upstream:/etc/nginx/upstream
-      #      - ./server/nginx/cert:/etc/nginx/cert
-      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./server/nginx/log/www:/etc/nginx/log/www
-    #      - ./server/nginx/log/error.log:/var/log/nginx/error.log
+      - ${DIR_MAPPING}:/www
+      - ${CONFIG_D_PATH}:/etc/nginx/conf.d
+      - ${UPSTREAM_PATH}:/etc/nginx/upstream
+      - ${CERT_PATH}:/etc/nginx/cert
+      - ${NGINX_CONFIG}:/etc/nginx/nginx.conf
+      - ${LOG_WWW_PATH}:/etc/nginx/log/www
+      - ${ERROR_LOG_PATH}:/var/log/nginx/error.log
     networks:
       server:
-        ipv4_address: 172.27.0.3
+        ipv4_address: ${NGINX_IP}
     restart: always
     container_name: nginx
 
 
   php:
-    #build: ./server/php
+    build: ./server/php
     #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    #    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -51,7 +52,6 @@ services:
       - ./www:/www
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/conf.d:/usr/local/etc/php/conf.d
-     # - ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
       - ./server/php/etc/hosts:/etc/hosts
     networks:
@@ -64,11 +64,9 @@ services:
 
   redis:
     build: ./server/redis
-    ports:
-      - "6379:6379"
     volumes:
       - ./server/redis/redis.conf:/usr/local/etc/redis.conf
-      - ./server/redis/data:/usr/local/redis/data
+      #      - redis_data:/usr/local/redis/data
       - ./server/redis/log/redis.log:/usr/local/redis/redis.log
     networks:
       server:
@@ -76,91 +74,99 @@ services:
     restart: always
     container_name: redis
 
-  #  mongodb:
-  #    build: ./server/mongodb
-  #    ports:
-  #      - "27017:27017"
-  #    volumes:
-  #      - ./server/mongodb/data/db:/data/db #db dir
-  #    environment:
-  #      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-  #      MONGO_INITDB_ROOT_PASSWORD: "123456"
-  #    networks:
-  #      server:
-  #        ipv4_address: 172.27.0.6
-  #    restart: always
-  #    container_name: mongodb
-  #    command:
-  #      --auth
+  mongodb:
+    build: ./server/mongodb
+    volumes:
+      - mongo_data:/data/db #db dir
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "mongodb"
+      MONGO_INITDB_ROOT_PASSWORD: "123456"
+    networks:
+      server:
+        ipv4_address: 172.27.0.6
+    restart: always
+    container_name: mongodb
+    command:
+      --auth
 
 
-  #  phpredisadmin:
-  #    image: erikdubbelboer/phpredisadmin:latest
-  #    ports:
-  #      - "6370:80"
-  #    depends_on:
-  #      - redis
-  #    networks:
-  #      server:
-  #        ipv4_address: 172.27.0.7
-  #    environment:
-  #      - REDIS_1_HOST=redis
-  #      - REDIS_1_PORT=6379
-  #      - TZ=$TZ
-  #    container_name: phpredisadmin
-  #
-  #  adminmongo:
-  #    image: mrvautin/adminmongo
-  #    depends_on:
-  #      - mongodb
-  #    ports:
-  #      - "1234:1234"
-  #    environment:
-  #      - HOST=0.0.0.0
-  #      - DB_HOST=mongodb
-  #      - DB_PORT=27017
-  #    networks:
-  #      server:
-  #        ipv4_address: 172.27.0.8
-  #    container_name: adminmongo
+  phpredisadmin:
+    image: erikdubbelboer/phpredisadmin:latest
+    depends_on:
+      - redis
+    networks:
+      server:
+        ipv4_address: 172.27.0.7
+    environment:
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
+      - TZ=$TZ
+    container_name: phpredisadmin
 
-  #  grafana:
-  #    image: grafana/grafana:6.0.1
-  #    environment:
-  #      GF_LOG_LEVEL: error
-  #      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-  #      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-  #    volumes:
-  #      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-  #      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
-  #    ports:
-  #      - "3000:3000"
-  #    restart: always
-  #    container_name: grafana
+  adminmongo:
+    image: mrvautin/adminmongo
+    depends_on:
+      - mongodb
+    environment:
+      - HOST=0.0.0.0
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+    networks:
+      server:
+        ipv4_address: 172.27.0.8
+    container_name: adminmongo
 
-  #  centrifugo:
-  #    image: centrifugo/centrifugo
-  #    volumes:
-  #      - ./server/centrifugo/config:centrifugo
-  #    ports:
-  #      - 8000:8000
-  #    restart: always
-  #    container_name: centrifugo
-  #    command: centrifugo -c config.json
+  grafana:
+    image: grafana/grafana:6.0.1
+    environment:
+      GF_LOG_LEVEL: error
+      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+    networks:
+      server:
+        - ipv4_address: 172.27.0.9
+    volumes:
+      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+    restart: always
+    container_name: grafana
+
+  centrifugo:
+    build:
+      context: ./server/centrifugo
+      dockerfile: Dockerfile
+    container_name: centrifugo
+    volumes:
+      - ./server/centrifugo/config.json:/centrifugo/config.json
+    command: centrifugo -c config.json
+    ports:
+      - 8000:8000
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    networks:
+      server:
+        ipv4_address:  172.27.0.9
+
   wordpress:
     build:
       context: ./server/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
-    ports:
-      - 8099:80
     volumes:
       - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       - ./server/wordpress/data:/var/www/html
     networks:
       server:
-        ipv4_address: 172.27.0.9
+        ipv4_address: 172.27.0.10
     restart: always
+
+volumes:
+  mysql_data:
+  wordpress_data:
+  mongo_data:
+  redis_data:
 
 
 networks:

@@ -6,7 +6,7 @@ ENV TZ=Asia/Shanghai
 
 WORKDIR /var/www
 
-#COPY ./www/ /var/www
+COPY ./www/ /var/www
 
 RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories \
   && apk --no-cache add tzdata zeromq \
@@ -17,6 +17,7 @@ RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories \
   && source ~/.profile \
   && apk update \
   && apk upgrade \
-  && apk add --no-cache bash git openssh
+  && apk add --no-cache bash git openssh \
+  && go build -o
 
 EXPOSE 8088

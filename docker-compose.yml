@@ -24,6 +24,7 @@ services:
       - redis
       - mongodb
       - mysql
+      - team_standard
     ports:
       - "80:80"
       - "443:443"
@@ -164,6 +165,14 @@ services:
     networks:
       server:
         ipv4_address: 172.27.0.10
+    restart: always
+
+  team_standard:
+    container_name: team_standard
+    image: alicfeng/gitbook:team_standard:latest
+    networks:
+      server:
+        ipv4_address: 172.27.0.11
     restart: always
 
 #数据卷

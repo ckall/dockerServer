@@ -66,7 +66,7 @@ services:
     build: ./server/redis
     volumes:
       - ./server/redis/redis.conf:/usr/local/etc/redis.conf
-      #      - redis_data:/usr/local/redis/data
+      - ./server/redis/data:/usr/local/redis/data
       - ./server/redis/log/redis.log:/usr/local/redis/redis.log
     networks:
       server:
@@ -116,23 +116,23 @@ services:
         ipv4_address: 172.27.0.8
     container_name: adminmongo
 
-#  grafana:
-#    image: grafana/grafana:6.0.1
-#    environment:
-#      GF_LOG_LEVEL: error
-#      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-#      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-#    networks:
-#      server:
-#        ipv4_address: 172.27.0.9
-#    volumes:
-#      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-#      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
-#    restart: always
-#    container_name: grafana
+  #  grafana:
+  #    image: grafana/grafana:6.0.1
+  #    environment:
+  #      GF_LOG_LEVEL: error
+  #      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+  #      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+  #    networks:
+  #      server:
+  #        ipv4_address: 172.27.0.9
+  #    volumes:
+  #      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
+  #      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+  #    restart: always
+  #    container_name: grafana
 
   centrifugo:
-    image: centrifugo/centrifugo
+    image: centrifugo/centrifugo:latest
     container_name: centrifugo
     volumes:
       - ./server/centrifugo/config.json:/centrifugo/config.json

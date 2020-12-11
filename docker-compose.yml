@@ -168,12 +168,12 @@ services:
     restart: always
 
   team_standard:
-    container_name: team_standard
-    image: alicfeng/gitbook:team_standard:latest
+    image: alicfeng/gitbook:team_standard
     networks:
       server:
         ipv4_address: 172.27.0.11
     restart: always
+    container_name: team_standard
 
 #数据卷
 volumes:

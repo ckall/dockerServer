@@ -20,6 +20,7 @@ services:
     build: ${NGINX_BUILD_PATH}
     depends_on:
       - php
+      - phpmyadmin
       - wordpress
       - redis
       - mongodb
@@ -66,6 +67,8 @@ services:
 
   redis:
     build: ./server/redis
+    ports:
+      - 6379:6379
     volumes:
       - ./server/redis/redis.conf:/usr/local/etc/redis.conf
       - ./server/redis/data:/usr/local/redis/data
@@ -175,6 +178,16 @@ services:
     restart: always
     container_name: team_standard
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+    networks:
+      server:
+        ipv4_address: 172.27.0.9
+    container_name: phpmyadmin
 #数据卷
 volumes:
   mysql_data:

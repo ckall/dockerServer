@@ -1,9 +1,9 @@
-version: "3.2"
+version: "3.7"
 services:
   es-master:
     container_name: es-master
     hostname: es-master
-    image: elasticsearch:6.4.2
+    image: elasticsearch:7.4.2
     restart: always
     ports:
       - 9200:9200
@@ -81,7 +81,7 @@ services:
   kibana:
     container_name: kibana
     hostname: kibana
-    image: kibana:6.4.2
+    image: kibana:7.4.2
     restart: always
     depends_on:
       - es-master
@@ -139,16 +139,16 @@ services:
 #      - elknet
 
   # es-head
-  es-head:
-    container_name: es-head
-    image: mobz/elasticsearch-head:5
-    restart: always
-    ports:
-      - 9100:9100
-    volumes:
-      - ./es-head:/usr/src/app/_site
-    networks:
-      - elknet
+#  es-head:
+#    container_name: es-head
+#    image: mobz/elasticsearch-head:5
+#    restart: always
+#    ports:
+#      - 9100:9100
+#    volumes:
+#      - ./es-head:/usr/src/app/_site
+#    networks:
+#      - elknet
 
 #  # es监控工具
 #  cerebro:
@@ -195,3 +195,7 @@ services:
 networks:
   elknet:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24

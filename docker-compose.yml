@@ -20,12 +20,14 @@ services:
     build: ${NGINX_BUILD_PATH}
     depends_on:
       - php
-      - phpmyadmin
       - wordpress
       - redis
       - mongodb
       - mysql
       - team_standard
+      - adminmysql
+      - adminmongo
+      - adminredis
     ports:
       - "80:80"
       - "443:443"
@@ -97,7 +99,7 @@ services:
       --auth
 
 
-  phpredisadmin:
+  adminredis:
     image: erikdubbelboer/phpredisadmin:latest
     depends_on:
       - redis
@@ -178,7 +180,7 @@ services:
     restart: always
     container_name: team_standard
 
-  phpmyadmin:
+  adminmysql:
     image: phpmyadmin/phpmyadmin
     depends_on:
       - mysql
@@ -198,7 +200,8 @@ volumes:
 
 networks:
   server:
+    driver: bridge
     ipam:
+      driver: default
       config:
-        - subnet: 172.27.0.0/20
-          gateway: 172.27.0.1
+        - subnet: 172.27.0.0/24

@@ -10,7 +10,7 @@ services:
       - 9300:9300
     volumes:
       - ./elasticsearch/master/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./elasticsearch/master/data:/usr/share/elasticsearch/data
+      - es_master_data:/usr/share/elasticsearch/data
       - ./elasticsearch/master/logs:/usr/share/elasticsearch/logs
       - ./escerts:/usr/share/elasticsearch/config/certs
     environment:
@@ -191,6 +191,9 @@ services:
 #      - ./portainer-data:/data
 #    networks:
 #      - elknet
+
+volumes:
+  es_master_data:
 
 networks:
   elknet:

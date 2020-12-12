@@ -188,7 +188,7 @@ services:
       - PMA_HOST=mysql
     networks:
       server:
-        ipv4_address: 172.27.0.9
+        ipv4_address: 172.27.0.12
     container_name: phpmyadmin
 #数据卷
 volumes:

@@ -14,7 +14,7 @@ services:
       - ./elasticsearch/master/logs:/usr/share/elasticsearch/logs
       - ./escerts:/usr/share/elasticsearch/config/certs
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
       - TIMEZONE=Asia/ShangHai
       - ELASTIC_PASSWORD=charles
     ulimits:

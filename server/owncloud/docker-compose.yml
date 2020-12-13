@@ -1,0 +1,15 @@
+version: "3"
+services:
+  owncloud:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    volumes:
+      - owncloud_data:/var/www/html
+    restart: always
+    container_name: owncloud
+
+volumes:
+  owncloud_data:

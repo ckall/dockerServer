@@ -4,7 +4,7 @@ services:
   mysql:
     build: ${MYSQL_BUILD_PATH}
     ports:
-      - 3306:3306
+      - 3369:3306
     volumes:
       - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
       - mysql_data:/var/lib/mysql
@@ -47,9 +47,9 @@ services:
 
 
   php:
-    #build: ./server/php
-    #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    build: ./server/php
+    #原生构建太慢了如果你自己需要改的话就到上一个目录吧
+    #image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -70,7 +70,7 @@ services:
   redis:
     build: ./server/redis
     ports:
-      - 6379:6379
+      - 6377:6379
     volumes:
       - ./server/redis/redis.conf:/usr/local/etc/redis.conf
       - ./server/redis/data:/usr/local/redis/data

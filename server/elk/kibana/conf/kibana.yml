@@ -8,5 +8,5 @@ elasticsearch.hosts: ["http://es-master:9200/"]
 i18n.locale: "zh-CN"
 
 xpack.monitoring.ui.container.elasticsearch.enabled: true
-#elasticsearch.username: "elastic"
-#elasticsearch.password: "charles"
+elasticsearch.username: "elastic"
+elasticsearch.password: "charles"

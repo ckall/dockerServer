@@ -2,46 +2,53 @@ version: "2.2"
 services:
 
   mysql:
-    build: ./server/mysql
+    build: ${MYSQL_BUILD_PATH}
     ports:
-      - "3306:3306"
+      - 3369:3306
     volumes:
-      - ./server/mysql/my.cnf:/etc/my.cnf
-      - ./server/mysql/data:/var/lib/mysql
+      - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
+      - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: charles
     restart: always
     networks:
       server:
-        ipv4_address: 172.27.0.2
+        ipv4_address: ${MYSQL_IP}
     container_name: mysql
 
   nginx:
-    build: ./server/nginx
+    build: ${NGINX_BUILD_PATH}
     depends_on:
       - php
+      - wordpress
+      - redis
+      - mongodb
+      - mysql
+      - team_standard
+      - adminmysql
+      - adminmongo
+      - adminredis
     ports:
-      - "8880:8888"
       - "80:80"
       - "443:443"
     volumes:
-      - ./www:/www
-      - ./server/nginx/conf.d:/etc/nginx/conf.d
-      #      - ./server/nginx/upstream:/etc/nginx/upstream
-      #      - ./server/nginx/cert:/etc/nginx/cert
-      - ./server/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./server/nginx/log/www:/etc/nginx/log/www
-    #      - ./server/nginx/log/error.log:/var/log/nginx/error.log
+      - ${DIR_MAPPING}:/www
+      - ${CONFIG_D_PATH}:/etc/nginx/conf.d
+      - ${UPSTREAM_PATH}:/etc/nginx/upstream
+      - ${CERT_PATH}:/etc/nginx/cert
+      - ${NGINX_CONFIG}:/etc/nginx/nginx.conf
+      - ${LOG_WWW_PATH}:/etc/nginx/log/www
+      - ${ERROR_LOG_PATH}:/var/log/nginx/error.log
     networks:
       server:
-        ipv4_address: 172.27.0.3
+        ipv4_address: ${NGINX_IP}
     restart: always
     container_name: nginx
 
 
   php:
     build: ./server/php
-    #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
+    #原生构建太慢了如果你自己需要改的话就到上一个目录吧
     #image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
@@ -50,12 +57,11 @@ services:
       - ./www:/www
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/conf.d:/usr/local/etc/php/conf.d
-      #- ./server/php/config/php-fpm.d:/usr/local/etc/php-fpm.d
       - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
       - ./server/php/etc/hosts:/etc/hosts
     networks:
       server:
-        ipv4_address: 172.27.0.12
+        ipv4_address: 172.27.0.4
     restart: always
     container_name: php
     stdin_open: true
@@ -64,7 +70,7 @@ services:
   redis:
     build: ./server/redis
     ports:
-      - "6379:6379"
+      - 6377:6379
     volumes:
       - ./server/redis/redis.conf:/usr/local/etc/redis.conf
       - ./server/redis/data:/usr/local/redis/data
@@ -78,9 +84,9 @@ services:
   mongodb:
     build: ./server/mongodb
     ports:
-      - "27017:27017"
+      - 27017:27017
     volumes:
-      - ./server/mongodb/data/db:/data/db #db dir
+      - mongo_data:/data/db #db dir
     environment:
       MONGO_INITDB_ROOT_USERNAME: "mongodb"
       MONGO_INITDB_ROOT_PASSWORD: "123456"
@@ -93,15 +99,13 @@ services:
       --auth
 
 
-  phpredisadmin:
+  adminredis:
     image: erikdubbelboer/phpredisadmin:latest
-    ports:
-      - "6370:80"
     depends_on:
       - redis
     networks:
       server:
-        ipv4_address: 172.27.0.10
+        ipv4_address: 172.27.0.7
     environment:
       - REDIS_1_HOST=redis
       - REDIS_1_PORT=6379
@@ -112,34 +116,92 @@ services:
     image: mrvautin/adminmongo
     depends_on:
       - mongodb
-    ports:
-      - "1234:1234"
     environment:
       - HOST=0.0.0.0
       - DB_HOST=mongodb
       - DB_PORT=27017
     networks:
       server:
-        ipv4_address: 172.27.0.11
+        ipv4_address: 172.27.0.8
     container_name: adminmongo
 
-  grafana:
-    image: grafana/grafana:6.0.1
-    environment:
-      GF_LOG_LEVEL: error
-      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+  #  grafana:
+  #    image: grafana/grafana:6.0.1
+  #    environment:
+  #      GF_LOG_LEVEL: error
+  #      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+  #      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+  #    networks:
+  #      server:
+  #        ipv4_address: 172.27.0.9
+  #    volumes:
+  #      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
+  #      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+  #    restart: always
+  #    container_name: grafana
+
+  centrifugo:
+    image: centrifugo/centrifugo:latest
+    container_name: centrifugo
     volumes:
-      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
+      - ./server/centrifugo/config.json:/centrifugo/config.json
+    command: centrifugo -c config.json
     ports:
-      - "3000:3000"
+      - 8000:8000
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    networks:
+      server:
+        ipv4_address:  172.27.0.9
+
+  wordpress:
+    build:
+      context: ./server/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - wordpress_data:/var/www/html
+    networks:
+      server:
+        ipv4_address: 172.27.0.10
     restart: always
-    container_name: grafana
+
+  team_standard:
+    image: alicfeng/gitbook:team_standard
+    networks:
+      server:
+        ipv4_address: 172.27.0.11
+    restart: always
+    container_name: team_standard
+
+  adminmysql:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+    networks:
+      server:
+        ipv4_address: 172.27.0.12
+    container_name: phpmyadmin
+#数据卷
+volumes:
+  mysql_data:
+  wordpress_data:
+  mongo_data:
+  redis_data:
+
 
 networks:
   server:
+    driver: bridge
     ipam:
+      driver: default
       config:
-        - subnet: 172.27.0.0/20
-          gateway: 172.27.0.1
+        - subnet: 172.27.0.0/24

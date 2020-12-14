@@ -9,7 +9,7 @@ services:
       - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
       - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: charles
     restart: always
     networks:
       server:

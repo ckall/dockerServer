@@ -28,6 +28,7 @@ services:
       - adminmysql
       - adminmongo
       - adminredis
+      - yapi
     ports:
       - "80:80"
       - "443:443"
@@ -190,6 +191,23 @@ services:
       server:
         ipv4_address: 172.27.0.12
     container_name: phpmyadmin
+
+  yapi:
+    image: jayfong/yapi:latest
+    container_name: yapi-web
+    environment:
+      - YAPI_ADMIN_ACCOUNT=ckallcloud@foxmail.com
+      - YAPI_ADMIN_PASSWORD=19990205
+      - YAPI_CLOSE_REGISTER=true
+      - YAPI_DB_SERVERNAME=mongodb
+      - YAPI_DB_PORT=27017
+      - YAPI_DB_DATABASE=yapi
+      - YAPI_MAIL_ENABLE=false
+      - YAPI_LDAP_LOGIN_ENABLE=false
+      - YAPI_PLUGINS=[]
+    depends_on:
+      - mongodb
+    restart: unless-stopped
 #数据卷
 volumes:
   mysql_data:

@@ -107,8 +107,12 @@ services:
       server:
         ipv4_address: 172.27.0.7
     environment:
+      - REDIS_1_NAME=myredis
       - REDIS_1_HOST=redis
       - REDIS_1_PORT=6379
+      - REDIS_1_AUTH=charles
+      - ADMIN_USER=cheng
+      - ADMIN_PASS=charles
       - TZ=$TZ
     container_name: phpredisadmin
 

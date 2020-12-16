@@ -208,6 +208,9 @@ services:
       - YAPI_DB_SERVERNAME=mongodb
       - YAPI_DB_PORT=27017
       - YAPI_DB_DATABASE=yapi
+      - YAPI_DB_USER=mongodb
+      - YAPI_DB_PASS=123456
+      - YAPI_DB_AUTH_SOURCE=admin
       - YAPI_MAIL_ENABLE=false
       - YAPI_LDAP_LOGIN_ENABLE=false
       - YAPI_PLUGINS=[]

@@ -4,12 +4,12 @@ services:
   mysql:
     build: ${MYSQL_BUILD_PATH}
     ports:
-      - 3306:3306
+      - 3369:3306
     volumes:
       - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
       - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: charles
     restart: always
     networks:
       server:
@@ -28,6 +28,7 @@ services:
       - adminmysql
       - adminmongo
       - adminredis
+      - yapi
     ports:
       - "80:80"
       - "443:443"
@@ -47,9 +48,9 @@ services:
 
 
   php:
-    #build: ./server/php
-    #    原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
+    build: ./server/php
+    #原生构建太慢了如果你自己需要改的话就到上一个目录吧
+    #image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -70,7 +71,7 @@ services:
   redis:
     build: ./server/redis
     ports:
-      - 6379:6379
+      - 6377:6379
     volumes:
       - ./server/redis/redis.conf:/usr/local/etc/redis.conf
       - ./server/redis/data:/usr/local/redis/data
@@ -194,6 +195,23 @@ services:
       server:
         ipv4_address: 172.27.0.12
     container_name: phpmyadmin
+
+  yapi:
+    image: jayfong/yapi:latest
+    container_name: yapi-web
+    environment:
+      - YAPI_ADMIN_ACCOUNT=ckallcloud@foxmail.com
+      - YAPI_ADMIN_PASSWORD=19990205
+      - YAPI_CLOSE_REGISTER=true
+      - YAPI_DB_SERVERNAME=mongodb
+      - YAPI_DB_PORT=27017
+      - YAPI_DB_DATABASE=yapi
+      - YAPI_MAIL_ENABLE=false
+      - YAPI_LDAP_LOGIN_ENABLE=false
+      - YAPI_PLUGINS=[]
+    depends_on:
+      - mongodb
+    restart: unless-stopped
 #数据卷
 volumes:
   mysql_data:

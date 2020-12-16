@@ -200,7 +200,7 @@ services:
     image: jayfong/yapi:latest
     ports:
     - 3000:3000
-    container_name: yapi-web
+    container_name: yapi
     environment:
       - YAPI_ADMIN_ACCOUNT=ckallcloud@foxmail.com
       - YAPI_ADMIN_PASSWORD=19990205

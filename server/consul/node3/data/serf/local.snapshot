@@ -1,7 +1,0 @@
-alive: node3 172.20.0.3:8301
-alive: node1 172.20.0.2:8301
-clock: 1
-alive: node2 172.20.0.4:8301
-alive: ndoe4 172.20.0.5:8301
-clock: 2
-event-clock: 1

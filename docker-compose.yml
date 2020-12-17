@@ -2,14 +2,15 @@ version: "2.2"
 services:
 
   mysql:
-    build: ${MYSQL_BUILD_PATH}
+    build:
+      context: ${MYSQL_BUILD_PATH}
     ports:
-      - 3369:3306
+      - ${MYSQL_PORT}:3306
     volumes:
       - ${MYSQL_CONFIG_PATH}:/etc/my.cnf
       - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: charles
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
     restart: always
     networks:
       server:
@@ -17,7 +18,8 @@ services:
     container_name: mysql
 
   nginx:
-    build: ${NGINX_BUILD_PATH}
+    build:
+      context: ${NGINX_BUILD_PATH}
     depends_on:
       - php
       - wordpress
@@ -28,10 +30,10 @@ services:
       - adminmysql
       - adminmongo
       - adminredis
-      - yapi
+#      - yapi
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
       - ${DIR_MAPPING}:/www
       - ${CONFIG_D_PATH}:/etc/nginx/conf.d
@@ -48,52 +50,56 @@ services:
 
 
   php:
-    build: ./server/php
+    build:
+      context: ${PHP_BUILD_PATH}
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION}
     #原生构建太慢了如果你自己需要改的话就到上一个目录吧
     #image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
     volumes:
-      - ./www:/www
-      - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
-      - ./server/php/config/conf.d:/usr/local/etc/php/conf.d
-      - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
-      - ./server/php/etc/hosts:/etc/hosts
+      - ${PHP_PROJECT_PATH}:/www
+      - ${PHP_FPM_CONFIG_PATH}:/usr/local/etc/php-fpm.conf
+      - ${PHP_VENDOR_PATH}:/usr/local/etc/php/conf.d
+      - ${PHP_INI_PATH}:/usr/local/etc/php/php.ini
+      - ${PHP_HOSTS_PATH}:/etc/hosts
     networks:
       server:
-        ipv4_address: 172.27.0.4
+        ipv4_address: ${PHP_IP}
     restart: always
     container_name: php
     stdin_open: true
     tty: true
 
   redis:
-    build: ./server/redis
+    build: ${REDIS_BUILD_PATH}
     ports:
-      - 6377:6379
+      - ${REDIS_PORT}:6379
     volumes:
-      - ./server/redis/redis.conf:/usr/local/etc/redis.conf
-      - ./server/redis/data:/usr/local/redis/data
-      - ./server/redis/log/redis.log:/usr/local/redis/redis.log
+      - ${REDIS_CONFG_PATH}:/usr/local/etc/redis.conf
+      - redis_data:/usr/local/redis/data
+      - ${REDIS_LOGS_PATH}:/usr/local/redis/redis.log
     networks:
       server:
-        ipv4_address: 172.27.0.5
+        ipv4_address: ${REDIS_HOST}
     restart: always
     container_name: redis
 
   mongodb:
-    build: ./server/mongodb
+    build: ${MONGO_BUILD_PATH}
     ports:
-      - 27017:27017
+      - ${MONGO_PORT}:27017
     volumes:
       - mongo_data:/data/db #db dir
     environment:
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "123456"
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASS}
     networks:
       server:
-        ipv4_address: 172.27.0.6
+        ipv4_address: ${MONGO_HOST}
     restart: always
     container_name: mongodb
     command:
@@ -114,7 +120,6 @@ services:
       - REDIS_1_AUTH=charles
       - ADMIN_USER=cheng
       - ADMIN_PASS=charles
-      - TZ=$TZ
     container_name: phpredisadmin
 
   adminmongo:
@@ -149,7 +154,7 @@ services:
     image: centrifugo/centrifugo:latest
     container_name: centrifugo
     volumes:
-      - ./server/centrifugo/config.json:/centrifugo/config.json
+      - ./servers/centrifugo/config.json:/centrifugo/config.json
     command: centrifugo -c config.json
     ports:
       - 8000:8000
@@ -196,27 +201,27 @@ services:
         ipv4_address: 172.27.0.12
     container_name: phpmyadmin
 
-  yapi:
-    image: jayfong/yapi:latest
-    ports:
-    - 3000:3000
-    container_name: yapi
-    environment:
-      - YAPI_ADMIN_ACCOUNT=ckallcloud@foxmail.com
-      - YAPI_ADMIN_PASSWORD=19990205
-      - YAPI_CLOSE_REGISTER=true
-      - YAPI_DB_SERVERNAME=mongodb
-      - YAPI_DB_PORT=27017
-      - YAPI_DB_DATABASE=yapi
-      - YAPI_DB_USER=mongodb
-      - YAPI_DB_PASS=123456
-      - YAPI_DB_AUTH_SOURCE=admin
-      - YAPI_MAIL_ENABLE=false
-      - YAPI_LDAP_LOGIN_ENABLE=false
-      - YAPI_PLUGINS=[]
-    depends_on:
-      - mongodb
-    restart: unless-stopped
+#  yapi:
+#    image: jayfong/yapi:latest
+#    ports:
+#    - 3000:3000
+#    container_name: yapi
+#    environment:
+#      - YAPI_ADMIN_ACCOUNT=ckallcloud@foxmail.com
+#      - YAPI_ADMIN_PASSWORD=19990205
+#      - YAPI_CLOSE_REGISTER=true
+#      - YAPI_DB_SERVERNAME=mongodb
+#      - YAPI_DB_PORT=27017
+#      - YAPI_DB_DATABASE=yapi
+#      - YAPI_DB_USER=mongodb
+#      - YAPI_DB_PASS=123456
+#      - YAPI_DB_AUTH_SOURCE=admin
+#      - YAPI_MAIL_ENABLE=false
+#      - YAPI_LDAP_LOGIN_ENABLE=false
+#      - YAPI_PLUGINS=[]
+#    depends_on:
+#      - mongodb
+#    restart: unless-stopped
 #数据卷
 volumes:
   mysql_data:

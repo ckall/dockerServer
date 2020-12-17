@@ -1,0 +1,51 @@
+version: "3.4"
+services:
+
+
+  rabbitmq-1:
+    build: servers/rabbitmq/master
+    hostname: rabbit1
+    container_name: myrabbit1
+    ports:
+      - 15672:15672
+      - 5672:5672
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=rabbitcookie
+    restart: always
+    networks:
+      - rabbitmq
+
+  rabbitmq-2:
+    build: servers/rabbitmq/slave1
+    hostname: rabbit2
+    container_name: myrabbit2
+    links:
+      - rabbitmq-1:rabbit1
+    ports:
+      - 15673:15672
+      - 5673:5672
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=rabbitcookie
+    networks:
+      - rabbitmq
+    restart: always
+
+
+
+  rabbitmq-3:
+    build: servers/rabbitmq/slave2
+    hostname: rabbit2
+    container_name: myrabbit3
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=rabbitcookie
+    links:
+      - rabbitmq-1:rabbit1
+      - rabbitmq-2:rabbit2
+    ports:
+      - 15674:15672
+      - 5674:5672
+    networks:
+      - rabbitmq
+    restart: always
+networks:
+  rabbitmq:

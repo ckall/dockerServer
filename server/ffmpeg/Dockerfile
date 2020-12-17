@@ -1,2 +1,0 @@
-FROM jrottenberg/ffmpeg:latest
-

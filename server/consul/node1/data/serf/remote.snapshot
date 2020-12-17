@@ -1,5 +1,0 @@
-alive: node1.dc1 172.20.0.2:8302
-alive: node3.dc1 172.20.0.3:8302
-alive: node2.dc1 172.20.0.4:8302
-clock: 2
-clock: 3

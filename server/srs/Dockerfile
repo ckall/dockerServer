@@ -1,1 +1,0 @@
-FROM ossrs/srs:3

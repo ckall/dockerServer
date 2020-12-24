@@ -32,7 +32,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ${DIR_MAPPING}:/www
+      - ./perjects/php:/www
       - ${CONFIG_D_PATH}:/etc/nginx/conf.d
       - ${UPSTREAM_PATH}:/etc/nginx/upstream
       - ${CERT_PATH}:/etc/nginx/cert
@@ -54,7 +54,7 @@ services:
       - "9000"
       - "9502"
     volumes:
-      - ./www:/www
+      - ./perjects/php:/www
       - ./server/php/config/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - ./server/php/config/conf.d:/usr/local/etc/php/conf.d
       - ./server/php/config/php.ini:/usr/local/etc/php/php.ini
@@ -125,61 +125,6 @@ services:
         ipv4_address: 172.27.0.8
     container_name: adminmongo
 
-  #  grafana:
-  #    image: grafana/grafana:6.0.1
-  #    environment:
-  #      GF_LOG_LEVEL: error
-  #      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-  #      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-  #    networks:
-  #      server:
-  #        ipv4_address: 172.27.0.9
-  #    volumes:
-  #      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-  #      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
-  #    restart: always
-  #    container_name: grafana
-
-  centrifugo:
-    image: centrifugo/centrifugo:latest
-    container_name: centrifugo
-    volumes:
-      - ./server/centrifugo/config.json:/centrifugo/config.json
-    command: centrifugo -c config.json
-    ports:
-      - 8000:8000
-    ulimits:
-      nofile:
-        soft: 65535
-        hard: 65535
-    networks:
-      server:
-        ipv4_address:  172.27.0.9
-
-  wordpress:
-    build:
-      context: ./server/wordpress
-      dockerfile: Dockerfile
-    container_name: wordpress
-    depends_on:
-      - mysql
-      - redis
-    volumes:
-      - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - wordpress_data:/var/www/html
-    networks:
-      server:
-        ipv4_address: 172.27.0.10
-    restart: always
-
-  team_standard:
-    image: alicfeng/gitbook:team_standard
-    networks:
-      server:
-        ipv4_address: 172.27.0.11
-    restart: always
-    container_name: team_standard
-
   adminmysql:
     image: phpmyadmin/phpmyadmin
     depends_on:
@@ -188,12 +133,11 @@ services:
       - PMA_HOST=mysql
     networks:
       server:
-        ipv4_address: 172.27.0.12
+        ipv4_address: 172.27.0.9
     container_name: phpmyadmin
 #数据卷
 volumes:
   mysql_data:
-  wordpress_data:
   mongo_data:
   redis_data:
 

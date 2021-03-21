@@ -20,11 +20,11 @@ services:
     build: ${NGINX_BUILD_PATH}
     depends_on:
       - php
-      - wordpress
+#      - wordpress
       - redis
       - mongodb
       - mysql
-      - team_standard
+#      - team_standard
       - adminmysql
       - adminmongo
       - adminredis

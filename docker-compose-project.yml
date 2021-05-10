@@ -1,0 +1,77 @@
+version: 3.0
+services:
+  wordpress:
+    build:
+      context: ./server/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    volumes:
+      - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - wordpress_data:/var/www/html
+    networks:
+      server:
+        ipv4_address: 172.27.2.2
+    restart: always
+
+  team_standard:
+    image: alicfeng/gitbook:team_standard
+    networks:
+      server:
+        ipv4_address: 172.27.2.3
+    restart: always
+    container_name: team_standard
+
+  adminmysql:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=172.27.0.2
+    networks:
+      server:
+        ipv4_address: 172.27.2.4
+    container_name: phpmyadmin
+
+  jump:
+    image: jumpserver/jms_all:latest
+    ports:
+      - 8030:80
+      - 8020:2222
+    networks:
+      server:
+        ipv4_address: 172.27.2.5
+    container_name: jump
+
+  adminredis:
+    image: erikdubbelboer/phpredisadmin:latest
+    networks:
+      server:
+        ipv4_address: 172.27.2.6
+    environment:
+      - REDIS_1_NAME=myredis
+      - REDIS_1_HOST=172.27.0.5
+      - REDIS_1_PORT=6379
+      - REDIS_1_AUTH=charles
+      - ADMIN_USER=cheng
+      - ADMIN_PASS=charles
+    container_name: phpredisadmin
+
+  adminmongo:
+    image: mrvautin/adminmongo
+    environment:
+      - HOST=172.27.0.6
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+    networks:
+      server:
+        ipv4_address: 172.27.2.7
+    container_name: adminmongo
+
+volumes:
+  wordpress_data:
+
+networks:
+  server:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.27.2.0/24     

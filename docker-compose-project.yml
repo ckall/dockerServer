@@ -1,22 +1,22 @@
-version: 3.0
+version: "3.0"
 services:
   wordpress:
     build:
-      context: ./server/wordpress
+      context: ./servers/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
     volumes:
-      - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ${WORDPRESS_CONFIG_PATH}:/usr/local/etc/php/conf.d/uploads.ini
       - wordpress_data:/var/www/html
     networks:
-      server:
+      projects:
         ipv4_address: 172.27.2.2
     restart: always
 
   team_standard:
     image: alicfeng/gitbook:team_standard
     networks:
-      server:
+      projects:
         ipv4_address: 172.27.2.3
     restart: always
     container_name: team_standard
@@ -26,24 +26,25 @@ services:
     environment:
       - PMA_HOST=172.27.0.2
     networks:
-      server:
+      projects:
         ipv4_address: 172.27.2.4
     container_name: phpmyadmin
 
   jump:
-    image: jumpserver/jms_all:latest
+    image: jumpserver/jms_all:v2.9.2
     ports:
       - 8030:80
       - 8020:2222
+    entrypoint:
     networks:
-      server:
+      projects:
         ipv4_address: 172.27.2.5
     container_name: jump
 
   adminredis:
     image: erikdubbelboer/phpredisadmin:latest
     networks:
-      server:
+      projects:
         ipv4_address: 172.27.2.6
     environment:
       - REDIS_1_NAME=myredis
@@ -61,15 +62,27 @@ services:
       - DB_HOST=mongodb
       - DB_PORT=27017
     networks:
-      server:
+      projects:
         ipv4_address: 172.27.2.7
     container_name: adminmongo
 
+  owncloud:
+    build:
+      context: servers/owncloud
+      dockerfile: Dockerfile
+    ports:
+      - 8001:80
+    volumes:
+      - owncloud_data:/var/www/html
+    restart: always
+    container_name: owncloud
+
 volumes:
   wordpress_data:
+  owncloud_data:
 
 networks:
-  server:
+  projects:
     driver: bridge
     ipam:
       driver: default

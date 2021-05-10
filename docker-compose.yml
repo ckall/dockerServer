@@ -22,15 +22,9 @@ services:
       context: ${NGINX_BUILD_PATH}
     depends_on:
       - php
-      - wordpress
       - redis
       - mongodb
       - mysql
-      - team_standard
-      - adminmysql
-      - adminmongo
-      - adminredis
-#      - yapi
     ports:
       - 80:80
       - 443:443
@@ -48,15 +42,14 @@ services:
     restart: always
     container_name: nginx
 
-
   php:
+    image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     build:
       context: ${PHP_BUILD_PATH}
       dockerfile: Dockerfile
       args:
         PHP_VERSION: ${PHP_VERSION}
     #原生构建太慢了如果你自己需要改的话就到上一个目录吧
-    #image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
     ports:
       - "9000"
       - "9502"
@@ -81,7 +74,7 @@ services:
     volumes:
       - ${REDIS_CONFG_PATH}:/usr/local/etc/redis.conf
       - redis_data:/usr/local/redis/data
-      - ${REDIS_LOGS_PATH}:/usr/local/redis/redis.log
+    #      - ${REDIS_LOGS_PATH}:/usr/local/redis/redis.log
     networks:
       server:
         ipv4_address: ${REDIS_HOST}
@@ -93,7 +86,7 @@ services:
     ports:
       - ${MONGO_PORT}:27017
     volumes:
-      - mongo_data:/data/db #db dir
+      - mongo_data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASS}
@@ -105,56 +98,11 @@ services:
     command:
       --auth
 
-
-  adminredis:
-    image: erikdubbelboer/phpredisadmin:latest
-    depends_on:
-      - redis
-    networks:
-      server:
-        ipv4_address: 172.27.0.7
-    environment:
-      - REDIS_1_NAME=myredis
-      - REDIS_1_HOST=redis
-      - REDIS_1_PORT=6379
-      - REDIS_1_AUTH=charles
-      - ADMIN_USER=cheng
-      - ADMIN_PASS=charles
-    container_name: phpredisadmin
-
-  adminmongo:
-    image: mrvautin/adminmongo
-    depends_on:
-      - mongodb
-    environment:
-      - HOST=0.0.0.0
-      - DB_HOST=mongodb
-      - DB_PORT=27017
-    networks:
-      server:
-        ipv4_address: 172.27.0.8
-    container_name: adminmongo
-
-  #  grafana:
-  #    image: grafana/grafana:6.0.1
-  #    environment:
-  #      GF_LOG_LEVEL: error
-  #      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
-  #      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
-  #    networks:
-  #      server:
-  #        ipv4_address: 172.27.0.9
-  #    volumes:
-  #      - ./server/grafana/grafana.ini:/etc/grafana/grafana.ini
-  #      - ./server/grafana/config/dashboards:/var/lib/grafana/dashboards
-  #    restart: always
-  #    container_name: grafana
-
   centrifugo:
     image: centrifugo/centrifugo:latest
     container_name: centrifugo
     volumes:
-      - ./servers/centrifugo/config.json:/centrifugo/config.json
+      - ${CENTRIFUGO_CONFIG_PATH}:/centrifugo/config.json
     command: centrifugo -c config.json
     ports:
       - 8000:8000
@@ -166,66 +114,11 @@ services:
       server:
         ipv4_address:  172.27.0.9
 
-  wordpress:
-    build:
-      context: ./server/wordpress
-      dockerfile: Dockerfile
-    container_name: wordpress
-    depends_on:
-      - mysql
-      - redis
-    volumes:
-      - ./server/wordpress/conf/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - wordpress_data:/var/www/html
-    networks:
-      server:
-        ipv4_address: 172.27.0.10
-    restart: always
 
-  team_standard:
-    image: alicfeng/gitbook:team_standard
-    networks:
-      server:
-        ipv4_address: 172.27.0.11
-    restart: always
-    container_name: team_standard
 
-  adminmysql:
-    image: phpmyadmin/phpmyadmin
-    depends_on:
-      - mysql
-    environment:
-      - PMA_HOST=mysql
-    networks:
-      server:
-        ipv4_address: 172.27.0.12
-    container_name: phpmyadmin
-
-#  yapi:
-#    image: jayfong/yapi:latest
-#    ports:
-#    - 3000:3000
-#    container_name: yapi
-#    environment:
-#      - YAPI_ADMIN_ACCOUNT=ckallcloud@foxmail.com
-#      - YAPI_ADMIN_PASSWORD=19990205
-#      - YAPI_CLOSE_REGISTER=true
-#      - YAPI_DB_SERVERNAME=mongodb
-#      - YAPI_DB_PORT=27017
-#      - YAPI_DB_DATABASE=yapi
-#      - YAPI_DB_USER=mongodb
-#      - YAPI_DB_PASS=123456
-#      - YAPI_DB_AUTH_SOURCE=admin
-#      - YAPI_MAIL_ENABLE=false
-#      - YAPI_LDAP_LOGIN_ENABLE=false
-#      - YAPI_PLUGINS=[]
-#    depends_on:
-#      - mongodb
-#    restart: unless-stopped
 #数据卷
 volumes:
   mysql_data:
-  wordpress_data:
   mongo_data:
   redis_data:
 

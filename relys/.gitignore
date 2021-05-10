@@ -1,5 +1,1 @@
-.idea
-!.gitignore
-/server/mysql/data/*
-/www
-/www/
+*

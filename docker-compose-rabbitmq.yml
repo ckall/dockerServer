@@ -47,5 +47,6 @@ services:
     networks:
       - rabbitmq
     restart: always
+
 networks:
   rabbitmq:

@@ -9,7 +9,7 @@ Development of integrated environment based on docker development, such as PHP, 
 * [综合环境](#启动容器)
 * [PHP环境](#PHP环境)
 * [GO环境](#GO环境)
-* [Python环境(待完善)](#JAVA环境)
+* [Python环境(待完善)](#Python环境)
 
 ### 安装
 ```shell

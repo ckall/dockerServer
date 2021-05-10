@@ -11,7 +11,8 @@ ENV TIMEZONE=${timezone:-"Asia/Shanghai"} \
     COMPOSER_ALLOW_SUPERUSER=1
 
 # Libs -y --no-install-recommends
-RUN apt-get update \
+RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories \
+    && apt-get update \
     && apt-get install -y \
         curl wget git zip unzip less vim procps lsof tcpdump htop openssl net-tools iputils-ping \
         libzip-dev \

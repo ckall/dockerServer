@@ -44,11 +44,11 @@ services:
 
   php:
     image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
-    build:
-      context: ${PHP_BUILD_PATH}
-      dockerfile: Dockerfile
-      args:
-        PHP_VERSION: ${PHP_VERSION}
+#    build:
+#      context: ${PHP_BUILD_PATH}
+#      dockerfile: Dockerfile
+#      args:
+#        PHP_VERSION: ${PHP_VERSION}
     #原生构建太慢了如果你自己需要改的话就到上一个目录吧
     ports:
       - "9000"

@@ -10,14 +10,14 @@ services:
       - wordpress_data:/var/www/html
     networks:
       projects:
-        ipv4_address: 172.27.2.2
+        ipv4_address: 172.27.5.2
     restart: always
 
   team_standard:
     image: alicfeng/gitbook:team_standard
     networks:
       projects:
-        ipv4_address: 172.27.2.3
+        ipv4_address: 172.27.5.3
     restart: always
     container_name: team_standard
 
@@ -27,7 +27,7 @@ services:
       - PMA_HOST=172.27.0.2
     networks:
       projects:
-        ipv4_address: 172.27.2.4
+        ipv4_address: 172.27.5.4
     container_name: phpmyadmin
 
   jump:
@@ -38,14 +38,14 @@ services:
     entrypoint:
     networks:
       projects:
-        ipv4_address: 172.27.2.5
+        ipv4_address: 172.27.5.5
     container_name: jump
 
   adminredis:
     image: erikdubbelboer/phpredisadmin:latest
     networks:
       projects:
-        ipv4_address: 172.27.2.6
+        ipv4_address: 172.27.5.6
     environment:
       - REDIS_1_NAME=myredis
       - REDIS_1_HOST=172.27.0.5
@@ -63,7 +63,7 @@ services:
       - DB_PORT=27017
     networks:
       projects:
-        ipv4_address: 172.27.2.7
+        ipv4_address: 172.27.5.7
     container_name: adminmongo
 
   owncloud:
@@ -87,4 +87,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.27.2.0/24     
+        - subnet: 172.27.5.0/24     

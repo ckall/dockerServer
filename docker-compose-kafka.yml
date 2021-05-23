@@ -21,7 +21,7 @@ services:
       - ./kafka1/logs:/kafka
     networks:
       kafka:
-        ipv4_address: 172.20.0.14
+        ipv4_address: 172.27.4.14
 
   kafka2:
     image: wurstmeister/kafka
@@ -38,7 +38,7 @@ services:
       - ./kafka2/logs:/kafka
     networks:
       kafka:
-        ipv4_address: 172.20.0.15
+        ipv4_address: 172.27.4.15
 
   kafka3:
     image: wurstmeister/kafka
@@ -55,7 +55,7 @@ services:
       - ./kafka3/logs:/kafka
     networks:
       kafka:
-        ipv4_address: 172.20.0.16
+        ipv4_address: 172.27.4.16
 
   kafka-manager:
     image: sheepkiller/kafka-manager            # 如果要安装web管理工具可以同时安装这个，最后通过苏主机IP的9000端口进行访问，例如172.31.148.174:9000
@@ -72,10 +72,10 @@ services:
       - "9000"
     networks:
       kafka:
-        ipv4_address: 172.20.0.13
+        ipv4_address: 172.27.4.13
 networks:
   kafka:
     ipam:
       config:
-        - subnet: 172.20.0.0/16
-          gateway: 172.20.0.1
+        - subnet: 172.27.4.0/24
+          gateway: 172.27.4.1

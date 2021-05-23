@@ -1,1 +1,2 @@
-FROM ossrs/srs:3
+ARG SRSVERSION
+FROM ossrs/srs:${SRSVERSION}

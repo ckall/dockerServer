@@ -1,93 +1,109 @@
-version: "2.4"
+version: "3.4"
 services:
   srspush01:
     build:
       context: ./servers/srs
+      dockerfile: Dockerfile
       args:
         SRSVERSION: ${SRSVERSION}
     volumes:
-      - ./configs/srs/srspush01:/usr/local/srs/conf
+      - ./configs/srs/srs-push-01:/usr/local/srs/conf
+    ports:
+      - "8080"
+      - "1935"
+      - "1985"
     networks:
       srsnet:
         ipv4_address: 172.24.7.2
     container_name: srspush01
-#  srspush02:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.3
-#    volumes:
-#      - ./configs/srs/srspush02:/usr/local/srs/conf
-#    container_name: srspush02
-#  srspush03:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.4
-#    volumes:
-#      - ./configs/srs/srspush03:/usr/local/srs/conf
-#    container_name: srspush03
-#  srspull01:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.5
-#    volumes:
-#      - ./configs/srs/srspull01:/usr/local/srs/conf
-#    container_name: srspull01
-#  srspull02:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.6
-#    volumes:
-#      - ./configs/srs/srspull02:/usr/local/srs/conf
-#    container_name: srspull02
-#  srspull03:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.7
-#    volumes:
-#      - ./configs/srs/srspull03:/usr/local/srs/conf
-#    container_name: srspull03
-#  srspull04:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.8
-#    volumes:
-#      - ./configs/srs/srspull04:/usr/local/srs/conf
-#    container_name: srspull04
-#  srspull05:
-#    build:
-#      context: ./servers/srs
-#      args:
-#        SRSVERSION: ${SRSVERSION}
-#    networks:
-#      srsnet:
-#        ipv4_address: 172.24.7.9
-#    volumes:
-#      - ./configs/srs/srspull05:/usr/local/srs/conf
-#    container_name: srspull05
+  srspush02:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.3
+    volumes:
+      - ./configs/srs/srs-push-02:/usr/local/srs/conf
+    container_name: srspush02
+  srspush03:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.4
+    volumes:
+      - ./configs/srs/srs-push-03:/usr/local/srs/conf
+    container_name: srspush03
+  srspull01:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.5
+    volumes:
+      - ./configs/srs/srs-pull-01:/usr/local/srs/conf
+    container_name: srspull01
+  srspull02:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.6
+    volumes:
+      - ./configs/srs/srs-pull-02:/usr/local/srs/conf
+    container_name: srspull02
+  srspull03:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.7
+    volumes:
+      - ./configs/srs/srs-pull-03:/usr/local/srs/conf
+    container_name: srspull03
+  srspull04:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.8
+    volumes:
+      - ./configs/srs/srs-pull-04:/usr/local/srs/conf
+    container_name: srspull04
+  srspull05:
+    build:
+      context: ./servers/srs
+      dockerfile: Dockerfile
+      args:
+        SRSVERSION: ${SRSVERSION}
+    ports:
+      - "8080"
+      - "1935"
+      - "1985"
+    networks:
+      srsnet:
+        ipv4_address: 172.24.7.9
+    volumes:
+      - ./configs/srs/srs-pull-05:/usr/local/srs/conf
+    container_name: srspull05
 networks:
   srsnet:
     driver: bridge

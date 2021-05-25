@@ -9,6 +9,7 @@ services:
     volumes:
       - ./configs/srs/srs-push-01:/usr/local/srs/conf
     ports:
+      - "8000"
       - "8080"
       - "1935"
       - "1985"
@@ -95,6 +96,7 @@ services:
       args:
         SRSVERSION: ${SRSVERSION}
     ports:
+      - "8000"
       - "8080"
       - "1935"
       - "1985"

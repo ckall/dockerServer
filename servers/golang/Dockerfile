@@ -6,7 +6,7 @@ ENV TZ=Asia/Shanghai
 
 WORKDIR /var/www
 
-COPY ./www/ /var/www
+COPY ./projects/golang/ /var/www
 
 RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories \
   && apk --no-cache add tzdata zeromq \

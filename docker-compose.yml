@@ -1,6 +1,5 @@
 version: "2.2"
 services:
-
   mysql:
     build:
       context: ${MYSQL_BUILD_PATH}
@@ -29,7 +28,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ${DIR_MAPPING}:/www
+      - ${PHP_PROJECT_PATH}:/www
       - ${CONFIG_D_PATH}:/etc/nginx/conf.d
       - ${UPSTREAM_PATH}:/etc/nginx/upstream
       - ${CERT_PATH}:/etc/nginx/cert
@@ -44,11 +43,11 @@ services:
 
   php:
     image: registry.cn-hangzhou.aliyuncs.com/ckall/php-swoole-git
-#    build:
-#      context: ${PHP_BUILD_PATH}
-#      dockerfile: Dockerfile
-#      args:
-#        PHP_VERSION: ${PHP_VERSION}
+    #    build:
+    #      context: ${PHP_BUILD_PATH}
+    #      dockerfile: Dockerfile
+    #      args:
+    #        PHP_VERSION: ${PHP_VERSION}
     #原生构建太慢了如果你自己需要改的话就到上一个目录吧
     ports:
       - "9000"
@@ -72,9 +71,9 @@ services:
     ports:
       - ${REDIS_PORT}:6379
     volumes:
-      - ${REDIS_CONFG_PATH}:/usr/local/etc/redis.conf
+      - ./configs/redis/redis.conf:/usr/local/etc/redis.conf
       - redis_data:/usr/local/redis/data
-    #      - ${REDIS_LOGS_PATH}:/usr/local/redis/redis.log
+      - ${REDIS_LOGS_PATH}:/usr/local/redis/redis.log
     networks:
       server:
         ipv4_address: ${REDIS_HOST}
@@ -114,7 +113,20 @@ services:
       server:
         ipv4_address:  172.27.0.9
 
-
+  python3:
+    build:
+      context:  ./servers/python
+      dockerfile: Dockerfile
+      args:
+        PYTHONVENTION: 3.6.5
+    volumes:
+      - ./projects/python:/app
+    command: python
+    ports:
+      - 8001:8000
+    networks:
+      server:
+        ipv4_address:  172.27.0.10
 
 #数据卷
 volumes:
